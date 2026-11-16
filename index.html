@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>星と心の親子ナビ - 不登校ケア占星術アプリ</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Noto Sans JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAF8F5] text-stone-800 selection:bg-amber-200 selection:text-stone-900 pb-16">
+
+  <!-- ヘッダー -->
+  <header class="bg-gradient-to-r from-amber-50 via-orange-50/70 to-rose-50/60 border-b border-amber-200/60 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center text-white shadow-sm">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-stone-800 tracking-tight leading-tight">
+            星と心の親子ナビ
+          </h1>
+          <p class="text-[11px] sm:text-xs text-stone-500">
+            不登校に寄り添う西洋占星術ケア診断
+          </p>
+        </div>
+      </div>
+      <span class="hidden sm:inline-flex items-center gap-1.5 text-xs bg-white/80 text-amber-800 px-3 py-1 rounded-full border border-amber-200/80 shadow-xs">
+        <i data-lucide="star" class="w-3.5 h-3.5 text-amber-500 fill-amber-400"></i>
+        SwissEph天体暦アルゴリズム搭載
+      </span>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 pt-6 space-y-8">
+    <!-- イントロダクションメッセージ -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 shadow-xs border border-stone-200/70">
+      <div class="flex items-start gap-3.5">
+        <div class="p-2.5 bg-amber-100/70 text-amber-700 rounded-xl shrink-0 mt-0.5">
+          <i data-lucide="heart" class="w-5 h-5"></i>
+        </div>
+        <div class="space-y-1.5">
+          <h2 class="text-base sm:text-lg font-bold text-stone-800">
+            毎日頑張っているお母さんへ
+          </h2>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            学校に行けない日々は、お子さんにとっても、見守るお母さんにとっても、見えないトンネルの中にいるような不安がありますよね。
+            星の配置（ホロスコープ）は、お子さんが<strong class="text-amber-800 font-semibold">「今なぜ立ち止まっているのか」</strong>と、親子それぞれの<strong class="text-amber-800 font-semibold">「心の季節」</strong>を優しく教えてくれます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. 基本情報入力フォーム -->
+    <section class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-amber-200/70">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs font-bold flex items-center justify-center">
+          1
+        </span>
+        <h2 class="text-base sm:text-lg font-bold text-stone-800">
+          親子それぞれの生年月日を入力してください
+        </h2>
+      </div>
+
+      <form id="astro-form" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- お母さんの入力カード -->
+          <div class="bg-rose-50/40 rounded-xl p-4 sm:p-5 border border-rose-200/70 space-y-4">
+            <div class="flex items-center gap-2 text-rose-800 font-bold text-sm sm:text-base">
+              <i data-lucide="sun" class="w-4 h-4 text-rose-500"></i>
+              <span>お母さんの基本情報</span>
+            </div>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">
+                  生年月日 <span class="text-rose-500">*必須</span>
+                </label>
+                <input
+                  type="date"
+                  id="mom-date"
+                  required
+                  value="1984-05-15"
+                  class="w-full bg-white border border-stone-300 rounded-lg px-3.5 py-2.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">
+                  出生時間 <span class="text-stone-400 font-normal">※任意（わかると月の精度が上がります）</span>
+                </label>
+                <input
+                  type="time"
+                  id="mom-time"
+                  value=""
+                  class="w-full bg-white border border-stone-300 rounded-lg px-3.5 py-2.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- お子さんの入力カード -->
+          <div class="bg-sky-50/40 rounded-xl p-4 sm:p-5 border border-sky-200/70 space-y-4">
+            <div class="flex items-center gap-2 text-sky-900 font-bold text-sm sm:text-base">
+              <i data-lucide="moon" class="w-4 h-4 text-sky-500"></i>
+              <span>お子さんの基本情報</span>
+            </div>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">
+                  生年月日 <span class="text-rose-500">*必須</span>
+                </label>
+                <input
+                  type="date"
+                  id="child-date"
+                  required
+                  value="2013-09-20"
+                  class="w-full bg-white border border-stone-300 rounded-lg px-3.5 py-2.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">
+                  出生時間 <span class="text-stone-400 font-normal">※任意（母子手帳の時間など）</span>
+                </label>
+                <input
+                  type="time"
+                  id="child-time"
+                  value=""
+                  class="w-full bg-white border border-stone-300 rounded-lg px-3.5 py-2.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+          <p class="text-xs text-stone-500 flex items-center gap-1.5">
+            <i data-lucide="info" class="w-4 h-4 text-amber-500 shrink-0"></i>
+            出生時間が不明でも、太陽・水星・金星・年齢域は正確に診断できます。
+          </p>
+          <button
+            type="submit"
+            class="w-full sm:w-auto px-7 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            星のメッセージを受け取る
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 診断結果エリア -->
+    <div id="results-section" class="space-y-8">
+      <!-- 天体プロフィールコンテナ -->
+      <div id="profile-container"></div>
+
+      <!-- ナビゲーションタブ -->
+      <div id="tabs-container" class="flex overflow-x-auto gap-2 pb-1 no-scrollbar"></div>
+
+      <!-- 各診断セクションコンテナ -->
+      <div id="sections-container" class="space-y-8"></div>
+
+      <!-- サマリーコピーセクション -->
+      <div id="summary-container"></div>
+    </div>
+  </main>
+
+  <script>
+    // ============================================================================
+    // 1. 高精度天文計算エンジン (Swiss Ephemeris / VSOP87 & ELP2000 準拠ロジック)
+    // ============================================================================
+    const SIGNS = [
+      { id: 0, name: '牡羊座', symbol: '♈', element: 'fire', elementName: '火', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
+      { id: 1, name: '牡牛座', symbol: '♉', element: 'earth', elementName: '地', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+      { id: 2, name: '双子座', symbol: '♊', element: 'air', elementName: '風', color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-200' },
+      { id: 3, name: '蟹座', symbol: '♋', element: 'water', elementName: '水', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
+      { id: 4, name: '獅子座', symbol: '♌', element: 'fire', elementName: '火', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
+      { id: 5, name: '乙女座', symbol: '♍', element: 'earth', elementName: '地', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+      { id: 6, name: '天秤座', symbol: '♎', element: 'air', elementName: '風', color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-200' },
+      { id: 7, name: '蠍座', symbol: '♏', element: 'water', elementName: '水', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
+      { id: 8, name: '射手座', symbol: '♐', element: 'fire', elementName: '火', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
+      { id: 9, name: '山羊座', symbol: '♑', element: 'earth', elementName: '地', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+      { id: 10, name: '水瓶座', symbol: '♒', element: 'air', elementName: '風', color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-200' },
+      { id: 11, name: '魚座', symbol: '♓', element: 'water', elementName: '水', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
+    ];
+
+    const deg2rad = (deg) => (deg * Math.PI) / 180;
+    const rad2deg = (rad) => (rad * 180) / Math.PI;
+    const normalizeDeg = (deg) => ((deg % 360) + 360) % 360;
+
+    function getJulianDay(dateStr, timeStr) {
+      const [year, month, day] = dateStr.split('-').map(Number);
+      let hour = 12;
+      let minute = 0;
+      if (timeStr) {
+        [hour, minute] = timeStr.split(':').map(Number);
+      }
+      const utcDate = new Date(Date.UTC(year, month - 1, day, hour - 9, minute, 0));
+      const y = utcDate.getUTCFullYear();
+      const m = utcDate.getUTCMonth() + 1;
+      const d = utcDate.getUTCDate() + (utcDate.getUTCHours() + utcDate.getUTCMinutes() / 60) / 24;
+
+      let jy = y;
+      let jm = m;
+      if (jm <= 2) {
+        jy -= 1;
+        jm += 12;
+      }
+      const a = Math.floor(jy / 100);
+      const b = 2 - a + Math.floor(a / 4);
+      return Math.floor(365.25 * (jy + 4716)) + Math.floor(30.6001 * (jm + 1)) + d + b - 1524.5;
+    }
+
+    function calculatePlanetLongitudes(jd) {
+      const d = jd - 2451545.0;
+      const T = d / 36525.0;
+
+      // 1. 太陽 (Sun)
+      const L0_sun = normalizeDeg(280.46646 + 36000.76983 * T + 0.0003032 * T * T);
+      const M_sun = normalizeDeg(357.52911 + 35999.05029 * T - 0.0001537 * T * T);
+      const C_sun = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(deg2rad(M_sun))
+                  + (0.019993 - 0.000101 * T) * Math.sin(deg2rad(2 * M_sun))
+                  + 0.000289 * Math.sin(deg2rad(3 * M_sun));
+      const sunLon = normalizeDeg(L0_sun + C_sun);
+
+      // 2. 月 (Moon - ELP2000主要項)
+      const L_moon = normalizeDeg(218.3164477 + 481267.88123421 * T);
+      const D_moon = normalizeDeg(297.8501921 + 445267.1114034 * T);
+      const M_moon = normalizeDeg(134.9633964 + 477198.8675055 * T);
+      const F_moon = normalizeDeg(93.2720950 + 483202.0175233 * T);
+
+      let moonLon = L_moon
+        + 6.288774 * Math.sin(deg2rad(M_moon))
+        + 1.274027 * Math.sin(deg2rad(2 * D_moon - M_moon))
+        + 0.658314 * Math.sin(deg2rad(2 * D_moon))
+        + 0.213618 * Math.sin(deg2rad(2 * M_moon))
+        - 0.185116 * Math.sin(deg2rad(M_sun))
+        - 0.114332 * Math.sin(deg2rad(2 * F_moon))
+        + 0.058793 * Math.sin(deg2rad(2 * D_moon - 2 * M_moon))
+        + 0.057066 * Math.sin(deg2rad(2 * D_moon - M_sun - M_moon))
+        + 0.053322 * Math.sin(deg2rad(2 * D_moon + M_moon))
+        + 0.045758 * Math.sin(deg2rad(2 * D_moon - M_sun));
+      moonLon = normalizeDeg(moonLon);
+
+      // 3. 水星 (Mercury)
+      const L_mer = normalizeDeg(252.250906 + 149472.6746358 * T);
+      const a_mer = 0.38709893;
+      const e_mer = 0.20563069 + 0.00002527 * T;
+      const i_mer = 7.00487 - 0.005947 * T;
+      const w_mer = 77.45645 + 0.160477 * T;
+      const O_mer = 48.33167 - 0.125341 * T;
+      const M_mer = normalizeDeg(L_mer - w_mer);
+      const E_mer = M_mer + rad2deg(e_mer) * Math.sin(deg2rad(M_mer)) * (1 + e_mer * Math.cos(deg2rad(M_mer)));
+      const xv_mer = a_mer * (Math.cos(deg2rad(E_mer)) - e_mer);
+      const yv_mer = a_mer * Math.sqrt(1 - e_mer * e_mer) * Math.sin(deg2rad(E_mer));
+      const v_mer = rad2deg(Math.atan2(yv_mer, xv_mer));
+      const r_mer = Math.sqrt(xv_mer * xv_mer + yv_mer * yv_mer);
+      const u_mer = deg2rad(v_mer + w_mer - O_mer);
+      const xh_mer = r_mer * (Math.cos(deg2rad(O_mer)) * Math.cos(u_mer) - Math.sin(deg2rad(O_mer)) * Math.sin(u_mer) * Math.cos(deg2rad(i_mer)));
+      const yh_mer = r_mer * (Math.sin(deg2rad(O_mer)) * Math.cos(u_mer) + Math.cos(deg2rad(O_mer)) * Math.sin(u_mer) * Math.cos(deg2rad(i_mer)));
+      const R_earth = 1.00014 - 0.01671 * Math.cos(deg2rad(M_sun)) - 0.00014 * Math.cos(deg2rad(2 * M_sun));
+      const L_earth = normalizeDeg(sunLon + 180);
+      const xe = R_earth * Math.cos(deg2rad(L_earth));
+      const ye = R_earth * Math.sin(deg2rad(L_earth));
+      const mercuryLon = normalizeDeg(rad2deg(Math.atan2(yh_mer - ye, xh_mer - xe)));
+
+      // 4. 金星 (Venus)
+      const L_ven = normalizeDeg(181.979801 + 58517.8156760 * T);
+      const a_ven = 0.72333199;
+      const e_ven = 0.00677323 - 0.00004938 * T;
+      const i_ven = 3.39471 - 0.000789 * T;
+      const w_ven = 131.53298 + 0.004818 * T;
+      const O_ven = 76.68069 - 0.277694 * T;
+      const M_ven = normalizeDeg(L_ven - w_ven);
+      const E_ven = M_ven + rad2deg(e_ven) * Math.sin(deg2rad(M_ven));
+      const xv_ven = a_ven * (Math.cos(deg2rad(E_ven)) - e_ven);
+      const yv_ven = a_ven * Math.sqrt(1 - e_ven * e_ven) * Math.sin(deg2rad(E_ven));
+      const v_ven = rad2deg(Math.atan2(yv_ven, xv_ven));
+      const r_ven = Math.sqrt(xv_ven * xv_ven + yv_ven * yv_ven);
+      const u_ven = deg2rad(v_ven + w_ven - O_ven);
+      const xh_ven = r_ven * (Math.cos(deg2rad(O_ven)) * Math.cos(u_ven) - Math.sin(deg2rad(O_ven)) * Math.sin(u_ven) * Math.cos(deg2rad(i_ven)));
+      const yh_ven = r_ven * (Math.sin(deg2rad(O_ven)) * Math.cos(u_ven) + Math.cos(deg2rad(O_ven)) * Math.sin(u_ven) * Math.cos(deg2rad(i_ven)));
+      const venusLon = normalizeDeg(rad2deg(Math.atan2(yh_ven - ye, xh_ven - xe)));
+
+      return { sun: sunLon, moon: moonLon, mercury: mercuryLon, venus: venusLon };
+    }
+
+    function getSignInfo(lon) {
+      const signIndex = Math.floor(lon / 30);
+      const degree = lon % 30;
+      return {
+        sign: SIGNS[signIndex],
+        degree: degree,
+        actualDegree: Math.floor(degree),
+        sabianDegree: Math.floor(degree) + 1,
+      };
+    }
+
+    function calculateChart(birthDate, birthTime) {
+      const hasTime = Boolean(birthTime && birthTime.trim() !== '');
+      const jdBirth = getJulianDay(birthDate, hasTime ? birthTime : '12:00');
+      const natalPlanets = calculatePlanetLongitudes(jdBirth);
+
+      let isMoonCertain = true;
+      if (!hasTime) {
+        const jdStart = getJulianDay(birthDate, '00:00');
+        const jdEnd = getJulianDay(birthDate, '23:59');
+        const moonStartSign = Math.floor(calculatePlanetLongitudes(jdStart).moon / 30);
+        const moonEndSign = Math.floor(calculatePlanetLongitudes(jdEnd).moon / 30);
+        if (moonStartSign !== moonEndSign) {
+          isMoonCertain = false;
+        }
+      }
+
+      const now = new Date();
+      const [by, bm, bd] = birthDate.split('-').map(Number);
+      let age = now.getFullYear() - by;
+      const mDiff = (now.getMonth() + 1) - bm;
+      if (mDiff < 0 || (mDiff === 0 && now.getDate() < bd)) {
+        age--;
+      }
+      age = Math.max(0, age);
+
+      const birthObj = new Date(by, bm - 1, bd);
+      const yearsElapsed = Math.max(0, (now.getTime() - birthObj.getTime()) / (1000 * 60 * 60 * 24 * 365.2422));
+      const jdProgressedNow = jdBirth + yearsElapsed;
+      const progressedPlanetsNow = calculatePlanetLongitudes(jdProgressedNow);
+
+      // P太陽は直近の誕生日時点（満年齢 age 日目）の度数に固定
+      const jdProgressedBirthday = jdBirth + age;
+      const progressedPlanetsBirthday = calculatePlanetLongitudes(jdProgressedBirthday);
+
+      const pMoonInfo = getSignInfo(progressedPlanetsNow.moon);
+      const remainingDeg = 30 - pMoonInfo.degree;
+      const monthsToNextSign = Math.max(1, Math.round(remainingDeg / 1.05));
+
+      const pSunInfo = getSignInfo(progressedPlanetsBirthday.sun);
+      const isPSunTransition = pSunInfo.degree <= 1.5 || pSunInfo.degree >= 28.5;
+
+      let lastBirthdayYear = now.getFullYear();
+      if (mDiff < 0 || (mDiff === 0 && now.getDate() < bd)) {
+        lastBirthdayYear -= 1;
+      }
+
+      return {
+        age,
+        lastBirthdayYear,
+        hasTime,
+        isMoonCertain,
+        natal: {
+          sun: getSignInfo(natalPlanets.sun),
+          moon: getSignInfo(natalPlanets.moon),
+          mercury: getSignInfo(natalPlanets.mercury),
+          venus: getSignInfo(natalPlanets.venus),
+        },
+        progressed: {
+          sun: pSunInfo,
+          moon: pMoonInfo,
+          monthsToNextSign,
+          isPSunTransition,
+        }
+      };
+    }
+
+    // ============================================================================
+    // 2. 占星術ケア・データベース（360度全サビアンシンボル含む）
+    // ============================================================================
+    const MERCURY_DATA = {
+      0: {
+        shortTag: 'パッと直感・結論から伝える',
+        style: '直感・スピード型（結論からパッと知りたい）',
+        mismatch: '「なんでそうなったの？最初から順番に説明しなさい」と長い説教や質問攻めをすること。',
+        rephrase: '「結論だけ教えて！」「まず5分だけこれやってみる？」と短くシンプルに伝える。',
+        distance: '間延びした話し合いはNG。用件は1分以内で切り上げ、あとは本人の行動を見守る距離感がベスト。',
+        schoolReason: '興味が向いた瞬間に一気に集中するタイプのため、長い説明や単調な繰り返し作業に強いストレスを感じます。'
+      },
+      1: {
+        shortTag: '自分のペースでじっくり納得する',
+        style: 'じっくり体感・マイペース型（納得するまで時間がかかる）',
+        mismatch: '「早く決めなさい！」「今すぐ返事して！」と急かしたり、急に予定を変更すること。',
+        rephrase: '「急がなくていいよ」「ゆっくり考えて、決まったら教えてね」と時間の余白を渡す。',
+        distance: '返事を待つ沈黙の時間も「考えている最中」と捉えて、急かさず隣で温かい飲み物でも飲みながら待つ距離感。',
+        schoolReason: '自分のペースでじっくり納得しながら進みたいタイプ。急かされたり、次々と予定が変わると心がフリーズします。'
+      },
+      2: {
+        shortTag: '軽やかな雑談・好奇心でキャッチする',
+        style: '好奇心・ライトトーク型（気軽なおしゃべりで整理する）',
+        mismatch: '「真剣な話があるから座りなさい」と深刻な空気で重い話し合いをすること。',
+        rephrase: '「そういえばさ〜」とテレビやスマホを見ながらの軽い雑談のついでに本音を聞く。',
+        distance: '正面から向き合うより、隣に座ったり車を運転しながらの「ながら会話」が一番本音が出やすい距離感。',
+        schoolReason: '興味の対象が次々と移り変わるマルチタイプ。ひとつのやり方を強制されると退屈してエネルギーが切れます。'
+      },
+      3: {
+        shortTag: '正論よりも「安心感・気持ち」で受け取る',
+        style: '共感・安心感重視型（言葉の正しさより「気持ち」を受け取る）',
+        mismatch: '「それはあなたの考えが甘いよ」「正論」でアドバイスや指摘をすること。',
+        rephrase: '「辛かったね」「そう感じたんだね」と、まず100%気持ちに共感してから話す。',
+        distance: '心のバリアが張っている時は無理に踏み込まず、「いつでも味方だよ」という温かい空気感で見守る。',
+        schoolReason: '「誰と学ぶか」「安心できる先生・環境か」が最優先。冷たい雰囲気や否定的な空気の中では頭が働きません。'
+      },
+      4: {
+        shortTag: '自分の考えを尊重・応援してほしい',
+        style: '自己表現・リスペクト型（自分の考えを認められたい）',
+        mismatch: '「みんなそうしてるでしょ」「子どもなんだから親の言うことを聞きなさい」とプライドを傷つけること。',
+        rephrase: '「あなたはどう思う？」「さすが、よく見てるね！」と一人の人間として尊重して意見を求める。',
+        distance: '指示を出す監督ではなく、お子さんの考えや好きなことを「すごいね！」と応援する一番のファンになる距離感。',
+        schoolReason: '自分の考えや表現を認めてもらえると伸びるタイプ。ただ受け身で聞くだけの授業は退屈に感じやすいです。'
+      },
+      5: {
+        shortTag: '具体的な目安・細やかな配慮で安心する',
+        style: '繊細・具体性重視型（曖昧なことが不安になりやすい）',
+        mismatch: '「適当でいいよ」「なんとかなるよ」と曖昧な返事をすること。',
+        rephrase: '「今日はここまでできれば100点！」「明日は〇時に起きようか」と具体的な目安を示す。',
+        distance: '失敗を恐れて慎重になりすぎている時は、そっと環境を整えて「70点で花丸だよ」と安心させる距離感。',
+        schoolReason: '細かい部分によく気がつき、失敗を恐れて慎重になりすぎるタイプ。曖昧な指示や混沌とした空気に不安を感じます。'
+      },
+      6: {
+        shortTag: '穏やかな空気感・対等なバランスを大切にする',
+        style: '調和・バランス型（相手の顔色や空気を読みすぎる）',
+        mismatch: 'イライラした感情をぶつけたり、「白か黒かハッキリしなさい！」と迫ること。',
+        rephrase: '「AとB、どっちが気分に合う？」「無理しなくて大丈夫だよ」と穏やかなトーンで選択肢を出す。',
+        distance: 'お互いが心地よくいられる適度な礼儀と、感情的にならないフラットで風通しの良い距離感。',
+        schoolReason: '人間関係のバランスに意識が向きやすく、クラスの空気やグループ関係に気疲れして学びどころではなくなりがちです。'
+      },
+      7: {
+        shortTag: '表面的な言葉より「本音・深い信頼」を求める',
+        style: '探究・本音重視型（表面的な会話や嘘を見抜く）',
+        mismatch: '「どうせ大したことないでしょ」「元気出しなよ！」と表面的な励ましで済ませること。',
+        rephrase: '「無理に話さなくていいよ。話したくなったら、いつでも真剣に聞くからね」と伝える。',
+        distance: '無理に聞き出そうとせず、沈黙を信頼して待つこと。一度心を開くと深い本音でつながれます。',
+        schoolReason: '「なぜ？」を納得するまで深く掘り下げたい探究者タイプ。浅く広い暗記や表面的な会話が苦手です。'
+      },
+      8: {
+        shortTag: '細かいルールより「自由な視点・納得感」を重視する',
+        style: '自由・本質探究型（納得できないルールに反発する）',
+        mismatch: '「ルールだから守りなさい」「細かいことはいいからやりなさい」と枠に押し込めること。',
+        rephrase: '「なんでこれが必要なんだろうね？」「〇〇の世界ではこうらしいよ」と広い視点で話す。',
+        distance: '細かい管理や干渉を手放し、本や動画、ゲームなどの「知的な冒険」を面白がって聞く距離感。',
+        schoolReason: '枠にとらわれない自由な発想の持ち主。細かい校則や「意味のわからないルール」に強い疑問を抱きます。'
+      },
+      9: {
+        shortTag: '精神論より「現実的な事実・ステップ」で捉える',
+        style: '現実・目的意識型（無駄なことや曖昧な励ましが苦手）',
+        mismatch: '「頑張ればなんとかなる！」「みんな我慢してるんだから」と精神論を押し付けること。',
+        rephrase: '「今はエネルギーを充電する時期だね」「今日できたことはこれだね」と事実を認める。',
+        distance: '子ども扱いせず対等なパートナーとして接し、本人が自分で立て直そうとする力を信じて待つ距離感。',
+        schoolReason: '目的意識がはっきりしている現実派。「将来何の役に立つのか」が見えない作業にエネルギーを使えません。'
+      },
+      10: {
+        shortTag: '「みんなと同じ」より自分だけの論理を大切にする',
+        style: '独自論理・フラット型（「みんなと同じ」に強い違和感）',
+        mismatch: '「普通はこうするでしょ」「みんなと同じにしなさい」と一般常識を押し付けること。',
+        rephrase: '「面白い考え方だね！」「あなたなりのやり方でいいんだよ」と個性を肯定する。',
+        distance: 'ベタベタしすぎず、パーソナルスペース（一人の時間と空間）をしっかり尊重する友人同士のような距離感。',
+        schoolReason: '独自の論理と視点を持つアイデアマン。「みんなと同じやり方」を押し付けられると強い違和感を覚えます。'
+      },
+      11: {
+        shortTag: '理屈よりも「優しいムード・感覚」で共鳴する',
+        style: 'イメージ・感覚共鳴型（言葉よりも空気や感情で受け取る）',
+        mismatch: '「論理的に説明しなさい」「なぜ泣いてるの？」と理詰めで問い詰めること。',
+        rephrase: '「言葉にならなくても大丈夫だよ」「一緒に温かいココア飲もうか」と感覚で寄り添う。',
+        distance: '言葉での説明を求めすぎず、音楽やアート、穏やかな空間を共有して心を溶かす優しい距離感。',
+        schoolReason: '論理よりもイメージや感覚で物事を捉えるアーティスト気質。厳しいルールや数字の競争が苦手です。'
+      }
+    };
+
+    const MOON_CARE_DATA = {
+      0: {
+        childTrait: '自分のペースや「今やりたい！」という衝動を大切にしたいタイプ。周りに合わせすぎると心がすり減ります。',
+        childEnv: '自分の意思で選べる自由な空間・干渉されない時間',
+        magicWords: '「あなたが決めていいよ」「やってみたいこと、応援するよ」',
+        momPrescription: '一人になれる時間を作り、深呼吸や軽いストレッチで溜まったモヤモヤを発散！好きな香りは柑橘系（グレープフルーツ・オレンジ）やペパーミント。'
+      },
+      1: {
+        childTrait: '五感の心地よさと、変わらない安心のルーティンが何よりの栄養。急な変化や騒がしい環境が苦手です。',
+        childEnv: '肌触りの良い毛布、美味しいおやつ、静かで落ち着いた部屋',
+        magicWords: '「急がなくて大丈夫」「ゆっくり美味しいもの食べようね」',
+        momPrescription: 'お気に入りのカフェスイーツやハーブティー、肌触りの良いルームウェアで五感を甘やかして。香りはラベンダーやゼラニウムがおすすめ。'
+      },
+      2: {
+        childTrait: '好奇心が旺盛で、ちょっとしたおしゃべりや新しい情報に触れることで心が軽くなるタイプ。',
+        childEnv: '好きな動画や本、ゲームが楽しめる風通しの良い空間',
+        magicWords: '「それ面白そうだね！」「気分転換にちょっとおしゃべりしようか」',
+        momPrescription: 'SNSや雑誌を見たり、気心の知れた友人と他愛もないおしゃべりをして気分転換を！香りはレモングラスやユーカリで頭をスッキリ。'
+      },
+      3: {
+        childTrait: '感受性がとても豊かで、家族の空気や安心感に敏感。家という「安全な殻」の中で心を育てるタイプです。',
+        childEnv: '家族のぬくもりを感じるリビング、安心できるお気に入りの定位置',
+        magicWords: '「ここは絶対に安全だよ」「いつでも甘えていいんだよ」',
+        momPrescription: '温かいお風呂にゆっくり浸かり、自分自身をハグして「今日もよく頑張ったね」と労わって。香りはカモミールやスイートオレンジ。'
+      },
+      4: {
+        childTrait: '「そのままの自分」を認められ、大切にされている実感があるとエネルギーが湧いてくるタイプ。',
+        childEnv: '好きなことに没頭でき、家族から温かい注目と称賛をもらえる空間',
+        magicWords: '「あなたのそういうところ、本当に素敵だね」「大好きだよ」',
+        momPrescription: '好きなドラマや映画の世界に浸ったり、ちょっと贅沢な入浴剤で「お姫様気分」を味わって。香りはベルガモットやイランイラン。'
+      },
+      5: {
+        childTrait: '繊細で周囲によく気がつく分、無意識に緊張やプレッシャーを溜め込みやすいタイプ。',
+        childEnv: 'スッキリ片付いた清潔な空間、予定を詰め込まない静かな時間',
+        magicWords: '「70点で花丸だよ！」「今は休むのが一番のお仕事だよ」',
+        momPrescription: '家事の手をひとつ抜いて「今日は何もしない！」と決めること。整理整頓より休息を優先して。香りはティーツリーやラベンダー。'
+      },
+      6: {
+        childTrait: '周りとの調和を大切にし、人の顔色や空気を読みすぎて疲れやすい優しいタイプ。',
+        childEnv: '誰にも気を使わなくていい一人時間、美しく心地よいインテリア',
+        magicWords: '「誰にも気を使わなくていいよ」「あなたの好きなようにしてね」',
+        momPrescription: '綺麗な花を飾ったり、美しい音楽を聴きながら優雅なティータイムを。人の相談役はお休みして。香りはローズやゼラニウム。'
+      },
+      7: {
+        childTrait: '感情を心の奥に深く溜め込むタイプ。信頼できる相手と「静かに深くつながる安心感」を求めます。',
+        childEnv: 'プライバシーが守られた安心できる自室・干渉されない静寂',
+        magicWords: '「無理に話さなくていいよ。ずっと味方だからね」',
+        momPrescription: '一人の静かな部屋でキャンドルを灯したり、好きな本や音楽に深く没頭する時間を。香りはサンダルウッドやフランキンセンス。'
+      },
+      8: {
+        childTrait: '自由でのびのびした環境を好むタイプ。細かいルールや狭い枠に閉じ込められると心が息苦しくなります。',
+        childEnv: 'ルールに縛られず、本やネットで広い世界とつながれる空間',
+        magicWords: '「いろんな道があっていいんだよ」「心が自由になる方をえらぼう」',
+        momPrescription: '少し遠くの公園まで散歩に出かけたり、旅行雑誌を眺めて心を広い世界へ飛ばしてリフレッシュ！香りはローズマリーやグレープフルーツ。'
+      },
+      9: {
+        childTrait: '子どもながらに責任感が強く、「迷惑をかけちゃいけない」と一人で頑張りすぎてしまうタイプ。',
+        childEnv: '「何もしなくても愛されている」と感じられる温かい食卓・安心の場',
+        magicWords: '「頑張りすぎなくていいよ」「そのままのあなたで100点満点だよ」',
+        momPrescription: '「母親としての責任」という重いリュックを一度下ろして、深呼吸を。和の香り（ヒノキやゆず）のお風呂が心を深く癒やします。'
+      },
+      10: {
+        childTrait: '「みんなと同じ」よりも「自分だけのペース・スタイル」を大切にしたいタイプ。一人の時間が必要です。',
+        childEnv: '自分のこだわりが詰まったパーソナルスペース・デジタル環境',
+        magicWords: '「みんなと違っても大丈夫」「あなたのペースが一番だよ」',
+        momPrescription: '家事や育児のルールを一度リセットして、自分だけの自由な時間を確保して。香りはペパーミントやサイプレスで心を解放。'
+      },
+      11: {
+        childTrait: '境界線が柔らかく、周りの人の感情や場の空気をスポンジのように吸い込んで疲れやすいタイプ。',
+        childEnv: '音楽やアートに包まれた優しい空間、たっぷり眠れる寝室',
+        magicWords: '「辛いときは泣いてもいいよ」「ゆっくりおやすみ」',
+        momPrescription: 'ニュースやSNSの情報を遮断し、好きなお風呂や音楽、お昼寝で心と身体をふわっと浄化して。香りはネロリやラベンダー。'
+      }
+    };
+
+    const VENUS_DATA = {
+      0: { spark: '新しいチャレンジ、推しの応援、体を動かすことやライブ感。「自分が主役になれる体験」で輝きます。', independence: '「やってみたい！」という直感を止めないこと。アルバイトや趣味でも、自分の裁量で動ける場所が吉。' },
+      1: { spark: '美味しいもの、ファッション、音楽、ものづくり。「本物の心地よさ・美しさ」に触れることで心が満たされます。', independence: '好きなこと・得意な技術をじっくり磨くことで、それがそのまま将来の仕事や自信につながります。' },
+      2: { spark: 'SNS、トレンド、おしゃべり、軽やかなフットワーク。「面白い情報や人とつながること」がエネルギー源。', independence: 'ひとつの場所に縛られず、複数の趣味やコミュニティを持つことで、自分らしい居場所が見つかります。' },
+      3: { spark: '心を許せる仲間、推しやペットへの愛情、料理やインテリア。「大切な誰かや居場所を育むこと」に喜びを感じます。', independence: 'アットホームな職場や、少人数の信頼できるコミュニティから少しずつ外の世界へ踏み出すと安心です。' },
+      4: { spark: 'クリエイティブな表現、推し活、華やかな世界観。「自分の感性を思いきり表現すること」で心が生き返ります。', independence: '「好き」を隠さず表現することで同じ熱量の仲間が集まります。得意分野で輝く経験が自己肯定感の柱に。' },
+      5: { spark: '丁寧な暮らし、美容・健康、推し活のデータ整理やコレクション。「細部までこだわり整えること」に喜びを感じます。', independence: '「誰かの役に立つ・喜ばれる」という実感が自信に。専門スキルや資格など、着実に身につく学びが◎。' },
+      6: { spark: 'おしゃれ、カフェ巡り、アート、洗練された空間。「美しいものや心地よい人間関係」が心の栄養になります。', independence: '自分のセンスを活かせる環境や、フラットで風通しの良い人間関係の中で本来の魅力が開花します。' },
+      7: { spark: 'ひとつの世界観への深い没頭、推しへの一途な愛、心の探究。「表面だけではない本物のつながり」を求めます。', independence: '好きなことを徹底的に深掘りする集中力が最大の武器。専門性の高い分野で大きく花開きます。' },
+      8: { spark: '未知の世界、旅行、語学、哲学やサブカルチャー。「まだ見ぬ世界へ視野を広げること」に心が躍ります。', independence: '通信制や留学、自由度の高い働き方など、枠にとらわれない選択肢を知ることで一気に元気が湧いてきます。' },
+      9: { spark: '伝統あるもの、落ち着いた空間、目標を達成する手応え。「自分の力で形にすること」に静かな喜びを感じます。', independence: '焦らず自分のペースでステップアップできる環境が◎。小さな実績を積み重ねることで揺るがない自信に。' },
+      10: { spark: 'ネットの世界、ゲーム、最新テクノロジー、個性的なファッション。「自分だけのオリジナルな感性」を愛します。', independence: '在宅ワークやクリエイティブ系、フラットなコミュニティなど「年齢や肩書きに関係なく対等な場」で輝きます。' },
+      11: { spark: '音楽、映画、ファンタジー、癒やしやスピリチュアル。「想像力や優しさが溶け合う世界」が心のオアシスです。', independence: '感性や優しさを活かせる分野（アート、福祉、癒やし系など）や、無理のないペースで働ける環境が合っています。' },
+    };
+
+    const PROGRESSED_MOON_ELEMENTS = {
+      fire: {
+        season: '芽吹きの季節・春',
+        shortSeason: '春の芽吹き期',
+        emoji: '🌱',
+        state: '外に出るかどうかにかかわらず、心の中では「何かやりたい」「退屈だな」「自分の力を試したい」という小さな火が灯り始めています。今はエネルギーの方向性を探っている最中です。',
+        momMessage: 'お子さんの中に「こうしたい！」という小さなわがままやこだわりが出てきたら、それはエネルギーが回復してきた素敵なサイン。「いいね、やってみようか！」と面白がって見守ってあげてください。',
+        momSelfState: 'お母さん自身も少しずつ前向きなエネルギーが湧いてくる時期。新しい趣味や小さなチャレンジを楽しむと心にゆとりが生まれます。',
+        action: 'お子さんの「ちょっとしたやりたいこと」を一緒に面白がって応援する',
+        letGo: '「まだ外に出られないからダメだ」と結果を急ぐこと',
+        signs: {
+          0: '自分のペースでゼロから何かを始めたい時。指示待ちより「自分で決める」体験を。',
+          4: '自分の好きなことや得意なことを誰かに認められたい時。全力で褒めてあげて。',
+          8: '広い世界や未知のジャンルに好奇心が向く時。本や動画、ゲームの世界の冒険も大切な学びです。'
+        }
+      },
+      earth: {
+        season: '生活を整える季節・秋',
+        shortSeason: '秋の整え期',
+        emoji: '🌾',
+        state: '心と身体の感覚をじっくり確かめながら、自分のペースで毎日を過ごしたい時期です。急な変化や予定変更を嫌がり、いつものルーティンや安心できる空間を大切にします。',
+        momMessage: '派手な変化は見えにくい時期ですが、心の中では着実に「自分なりの安心の土台」を固めています。「毎日同じ時間に起きられた」「好きなごはんを美味しく食べた」そんな小さな日常を一緒に喜んであげてください。',
+        momSelfState: 'お母さん自身も日々の暮らしや体調を整えることで心が安定する時期。無理な予定は入れず、心地よいルーティンを大切に。',
+        action: '美味しいごはんやおやつを一緒に味わい、小さな日常の「できた」を喜ぶ',
+        letGo: '周りと比べて焦ったり、急に新しい環境へ押し出そうとすること',
+        signs: {
+          1: '五感の心地よさが何よりの栄養。美味しいもの、肌触りの良い毛布が心を癒やします。',
+          5: '身の回りを整えたり、細かい作業に没頭すると心が落ち着く時。完璧主義になりすぎたら「70点で花丸！」と声をかけて。',
+          9: '「将来どうしよう」と真面目に考えすぎやすい時。今は目の前の小さな「できた」を積み重ねるだけで十分です。'
+        }
+      },
+      air: {
+        season: '好奇心とつながりの季節・夏',
+        shortSeason: '夏の好奇心期',
+        emoji: '🍃',
+        state: '少しずつ外の空気や情報、新しい世界への興味が湧いてくる時期です。「学校」という枠に限らず、ネットの世界や習い事、フリースクールなど、自分に合った居場所や知識を探し始めます。',
+        momMessage: 'おしゃべりが増えたり、スマホやPCでいろんなことを調べ始めたら、心の風通しが良くなってきた証拠です。お母さんが「良き聞き役・情報交換のパートナー」になってあげると、お子さんの世界がぐっと広がります。',
+        momSelfState: 'お母さん自身も新しい情報に触れたり、誰かと話すことで心が軽くなる時期。一人で抱え込まず風通しを良くしましょう。',
+        action: 'お子さんが興味を持っている動画・ゲーム・話題を「教えて！」と楽しく聞く',
+        letGo: '「スマホやゲームばかり見て…」と情報の世界を否定すること',
+        signs: {
+          2: 'いろんなことに興味が移り変わりやすい時。「飽きっぽい」ではなく「好奇心旺盛」と捉えてOK！',
+          6: '人との距離感を測り直す時。無理にグループに入らなくても、1対1の心地よい関係からスタートできます。',
+          10: '「みんなと同じ」よりも「自分らしさ」を大切にしたい時。ユニークな発想やこだわりを尊重してあげて。'
+        }
+      },
+      water: {
+        season: '深い充電の季節・冬',
+        shortSeason: '冬の充電期',
+        emoji: '❄️',
+        state: 'これまでの疲れを癒やし、心の奥底にある感情を整理している大切な「充電期間」です。外の世界の刺激に敏感になりやすいため、家という安全な殻の中でエネルギーを蓄える必要があります。',
+        momMessage: '今は無理に外へ引っ張り出そうとせず、「家がいちばん安心できる場所」にしてあげることが最高のケアです。一見止まっているように見えても、土の下ではしっかり根っこが育っています。焦らなくて大丈夫ですよ。',
+        momSelfState: 'いまはお母さん自身も、頑張りすぎた心を休ませてあげる時期です。「子どもをどうにかしなきゃ」という重荷を一度下ろして、今日は自分のためだけに温かいお茶を淹れて一息つきましょう。',
+        action: '家が「世界で一番安心できる安全基地」になるよう、ゆったり過ごす',
+        letGo: '「早く元気にならなきゃ」「学校に戻さなきゃ」というプレッシャー',
+        signs: {
+          3: '家族のぬくもりや安心感が心の栄養になる時。甘えや赤ちゃん返りのような言動も、充電のための大切なプロセスです。',
+          7: 'ひとつのことに深く集中したり、自分の殻にこもって心を見つめる時。無理に聞き出さず、静かに見守る信頼を。',
+          11: '感受性がとても豊かで、周りの空気を吸い込みやすい時。音楽やアート、お気に入りの空間で心を浄化してあげて。'
+        }
+      }
+    };
+
+    const SABIAN_360 = [
+      // 牡羊座 (0-29)
+      '新しい環境や未知の分野に一歩踏み出し、自分の中に眠っていた新鮮な衝動やアイデアが芽生えるとき',
+      '周りの空気を和ませたり、ユーモアや自分なりの表現で「自分らしさ」を外に出し始めるとき',
+      'これまで育ってきた環境やルーツの良さに気づき、自分の輪郭やアイデンティティがはっきりしてくるとき',
+      '信頼できるごく限られた人や好きな世界と深くつながり、安心できる居場所で心を満たすとき',
+      '「もっとこうしたい！」という理想や夢がふくらみ、これまでの枠を超えた自由な発想が湧いてくるとき',
+      '自分の考えや感情が少しずつ整理され、やるべきことや興味の方向性がくっきり見えてくるとき',
+      '「家での自分」と「外での自分」など、複数の顔や異なる興味をバランスよく使い分け始めるとき',
+      'これからの未来に向けてアンテナを張り、新しい情報や変化の風を敏感にキャッチし始めるとき',
+      '目に見えない心の動きや物事の本質をじっと見つめ、直感や洞察力が鋭くなっていくとき',
+      '今まで当たり前だと思っていたルールや考え方を自分なりに解釈し直し、新しいやり方を見つけるとき',
+      '自分の世界の主役として自信を取り戻し、「自分で決める力」やリーダーシップが芽生えるとき',
+      '同じ方向を向く仲間や気の合う人たちと自然と波長が合い、無理なく歩調を合わせていけるとき',
+      '勢いで進もうとして一度立ち止まり、「本当に大切なことは何か」を冷静に見つめ直すとき',
+      '自分の中の相反する感情や迷いとじっくり向き合い、心身のバランスと落ち着きを取り戻すとき',
+      '日々の小さな習慣や好きな手作業にコツコツ取り組むことで、心の安心感と集中力を育てるとき',
+      'プレッシャーから解放されて無邪気な子ども心が戻り、純粋に「楽しい！」と思える時間が増えるとき',
+      '無理に周りに合わせるのをやめ、自分の中のこだわりや本音と静かに向き合って心を整えるとき',
+      '張り詰めていた緊張の糸がふっと緩み、何もしない余白の時間の中で心と身体を深く休めるとき',
+      '現実の枠にとらわれない豊かな想像力が広がり、本やゲーム・空想の世界からエネルギーをもらうとき',
+      '心が繊細になっているときこそ、小さな生き物や優しいものに触れることで愛情と癒やしが循環するとき',
+      '「やってみよう！」という前向きな闘志や意欲が湧き、自分の力を試すステージへ一歩踏み出すとき',
+      '「あれもこれも知りたい！」と好奇心や欲求が大きく広がり、自分の好きなことに素直になれるとき',
+      '言葉にはできない繊細な思いや大切な宝物を心の中でじっくり温め、自分だけの世界を守るとき',
+      '閉じていた心の窓が開き、外からの新しい風や思いがけない嬉しいチャンスが舞い込んでくるとき',
+      '「こうしたい気持ち」と「現実のバランス」の間で揺れながらも、自分なりの納得解を見つけていくとき',
+      '自分がすでに持っている才能や周りの愛情の豊かさに気づき、心の中に大きな安心感が生まれるとき',
+      '過去の失敗や「できなかったこと」を想像力と工夫で乗り越え、新しいやり方で再スタートを切るとき',
+      '周りの期待に応えようとするのを手放し、「自分は自分のままでいい」と肩の荷を下ろしていくとき',
+      '目に見えない大きな流れやリズムに守られているような感覚になり、心が穏やかに調和していくとき',
+      'これまで育んできた興味や小さな芽が安全な環境の中でしっかりと育ち、次のステップへ備えるとき',
+
+      // 牡牛座 (30-59)
+      '生まれ持った感性や純粋な「好き」という気持ちが澄んだ水のように自然に流れ出すとき',
+      '思いがけない出来事や感情の揺れをきっかけに、心の停滞が吹き飛び目が覚めるとき',
+      '安心できる心地よい環境に足を踏み入れ、心と身体の緊張がふっとほぐれていくとき',
+      '日常の小さな喜びや自分の才能の中に、思いがけない宝物や希望の光を見つけるとき',
+      'これまでのこだわりや過去への執着を手放し、心の中に新しいスペースをつくるとき',
+      '「今の自分」と「外の世界」の間に少しずつ橋をかけ、無理のないつながり方を探るとき',
+      '自分の価値や魅力に気づき、誰かの優しさやサポートを素直に受け取れるようになるとき',
+      '先のことを心配しすぎず、今ある環境の中で楽しみや工夫を見つけて前向きに過ごすとき',
+      '好きなものや心地よいものに囲まれて心が満たされ、自分らしい輝きが自然とあふれるとき',
+      '傷ついた心や疲れを優しくケアし、周りの人とも温かい思いやりを分かち合えるとき',
+      '自分の好きなことや小さな興味に毎日少しずつ愛情を注ぎ、じっくり育てていくとき',
+      '「あれもいいな、これも素敵だな」と外の世界の楽しさに目が向き、心が軽やかになるとき',
+      '抱えている不安やプレッシャーを一人で背負いすぎず、誰かと分かち合いながら進むとき',
+      '結果や正解を急がず、遊びや試行錯誤を楽しみながら自分の感覚を確かめていくとき',
+      '自分のセンスやこだわりを大切にし、少し背伸びした大人っぽい世界に興味を持つとき',
+      '「どうしてこうなるんだろう？」と物事の仕組みや奥深さをじっくり探究したくなるとき',
+      '「こうしなきゃ」という義務感と「こうしたい」という本音の間で揺れ、自分の軸を確かめるとき',
+      'もう必要なくなった古いルールや重荷を思い切って手放し、心の風通しを良くするとき',
+      '真っ白なキャンバスに絵を描くように、ゼロから自分らしい新しい生活や居場所をつくるとき',
+      '重苦しかった気分やモヤモヤが風のように流れ去り、心が軽やかに軽くなっていくとき',
+      '本や言葉・情報の中から、今の自分に必要なヒントや大切なメッセージを受け取るとき',
+      '感情が揺れる出来事があっても、それを乗り越える希望や安心のサインがちゃんと届くとき',
+      '自分の中に眠っている大切な才能や個性を磨き、少しずつ自信を取り戻していくとき',
+      '周りの声や常識に惑わされず、自分の信念や「これが私だ」という芯の強さを守るとき',
+      '心と生活のリズムが穏やかに整い、誰もがホッとできる安心の空間の中でエネルギーを蓄えるとき',
+      '自分の好きなものや大切な人に対して、素直な愛情や感謝の気持ちを表現できるとき',
+      '自分が持っている小さなスキルや工夫を活かして、身近な人と楽しく交流できるとき',
+      '一度諦めかけていたことや好きな気持ちに再び火がつき、前向きな意欲が戻ってくるとき',
+      '信頼できるパートナーや家族と歩調を合わせながら、目の前のことをコツコツ積み上げるとき',
+      'これまで培ってきた自分らしさや魅力に誇りを持ち、堂々と自分の世界を表現できるとき',
+
+      // 双子座 (60-89)
+      '心を落ち着けて自分の内面や感情の動きをじっくり観察し、静かな気づきを得るとき',
+      '目に見える結果だけでなく、誰かの温かい思いやりや嬉しいサプライズに心が満たされるとき',
+      '美しいものや整った環境に触れることで、ざわざわしていた思考がすっきりと整理されるとき',
+      '季節の移ろいや温かい人間関係の中で、心がほっと和らぎ安心感に包まれるとき',
+      '今までの常識や当たり前に疑問を持ち、「もっと面白い方法があるはず！」と刺激を求めるとき',
+      '興味のあるテーマを深く掘り下げて調べることで、新しい知識やワクワクする発見があるとき',
+      '古いやり方にこだわらず、今の自分に合った新しいツールや考え方に切り替えていくとき',
+      '無理に周りに合わせることをストップし、「今の自分には休息や見直しが必要」と主張するとき',
+      'やりたいことや興味の選択肢がたくさん揃い、いつ動き出しても大丈夫な準備が整うとき',
+      '勢いで進みすぎていたペースを一度落とし、地に足をつけて自分の足元を見つめ直すとき',
+      'まだ誰も試していない新しいジャンルや学び方に触れ、好奇心の翼が大きく広がるとき',
+      '遠慮や気遣いを手放して、自分の意見や「私はこう思う！」という気持ちを素直に表現するとき',
+      '好きなことや得意な分野に集中して取り組み、自分だけの表現スタイルを磨いていくとき',
+      '言葉をたくさん交わさなくても、信頼できる人と感覚や気持ちで通じ合える安心感を得るとき',
+      '同じ目線で気楽に話せる相手とのおしゃべりや情報交換から、楽しいヒントが生まれるとき',
+      '自分の考えや思いを言葉にして伝える力が育ち、「わかってもらえた」という手応えを感じるとき',
+      '感情的なモヤモヤが少しずつ整理され、冷静に物事を考えられる知性と落ち着きが育つとき',
+      '同じ趣味や感覚を持つ仲間との「通じ合う会話」を楽しみ、孤独感がふっと消えていくとき',
+      '先人の知恵や本・物語の世界に触れることで、広い視野と心の支えを見つけるとき',
+      'いろんな情報や選択肢の中から、今の自分が本当に食べたいもの・好きなものを自由に選ぶとき',
+      '我慢していた本音やエネルギーを外に出し、自分らしい居場所やスタイルを求めて動き出すとき',
+      '難しいことを考えるのを一度お休みし、自然体でリラックスした時間や遊びを楽しむとき',
+      '安心できる安全な巣の中でしっかり守られながら、外の世界へ羽ばたく力を養っているとき',
+      '緊張やプレッシャーを手放し、軽やかなフットワークで今の環境を自分なりに楽しめるとき',
+      '頭の中のごちゃごちゃした情報や不要な思い込みを整理し、心がすっきりと身軽になるとき',
+      '静かな環境の中で心を落ち着け、季節の変化や繊細な感覚をじっくり味わうとき',
+      '一つの場所やルールに縛られるのをやめ、もっと自由で自分らしい世界へと歩き出すとき',
+      'これまでのやり方や見栄をすべて手放し、身軽なゼロの状態から新しく再出発するとき',
+      '長い冬が終わり、心の中に新しい希望や「やってみたい」という春の兆しが芽生えるとき',
+      '自分の魅力や個性を隠さずにのびのびと表現し、外の世界との交流を軽やかに楽しめるとき',
+
+      // 蟹座 (90-119)
+      'これまでの迷いに区切りをつけ、「私はこの方向でいく！」と新しい旗を掲げて決意するとき',
+      '周りの騒がしさから少し離れ、高い視点から自分の今の立ち位置を静かに見渡すとき',
+      '厳しさや孤独を感じやすい時期こそ、温かい安心感と自分を守る優しい環境を大切にするとき',
+      '心の中の小さな不安や疑問と丁寧に向き合い、自分の本音を整理して納得していくとき',
+      '今までの無理なペースや危ういやり方がリセットされ、安全な方向へ軌道修正されるとき',
+      '自分が心から安心できる居場所（家や自分の部屋）を整え、未来のエネルギーを蓄えるとき',
+      '現実のプレッシャーを忘れて、想像力や遊び心・ファンタジーの世界で心を自由に遊ばせるとき',
+      '「みんなと同じ」という枠の中で頑張りながら、少しずつ自分らしい役割や居場所を探るとき',
+      '計算や駆け引きのない純粋な好奇心で、自分の心が惹かれるものへ素直に手を伸ばすとき',
+      'まだ磨かれていない原石のような才能や個性が、日々の体験を通して少しずつ輝き始めるとき',
+      '物事を深刻に捉えすぎず、ユーモアや客観的な視点を持つことで心がふっと軽くなるとき',
+      '言葉にならない繊細な気持ちやサインを優しく受け止めてもらうことで、深い安心感が育つとき',
+      '自分の意志や「こうしたい」という思いを形にする力が強まり、小さな一歩を踏み出せるとき',
+      '目先の変化に焦らず、長い目で自分の人生や心の成長を静かに見守り信じる力を養うとき',
+      '美味しい食事や家族との団らんなど、心と身体が満たされる豊かな時間からエネルギーを得るとき',
+      '自分の思いや気づきをノートに書いたり言葉にしたりして、心の中の大切な宝物を形にするとき',
+      '心の中に蒔かれた小さな興味のタネが、安心できる環境の中でゆっくりと芽を出し成長するとき',
+      '家族や身近な人の温かいサポートを受けながら、日々の小さな栄養をコツコツ吸収するとき',
+      '自分の中の相反する気持ちや「家族との絆」を大切に結び合わせ、心の安定を取り戻すとき',
+      'ロマンチックな感性や音楽・物語の世界に浸り、情緒豊かに心を潤していくとき',
+      '抑えていた感情や思いが歌声のように素直にあふれ出し、自分らしい表現で心が解放されるとき',
+      'まだ見ぬ新しいチャンスや嬉しい変化が訪れるのを、焦らず穏やかな気持ちで待つとき',
+      '同じ興味や感性を持つ人たちと知識や思いを分かち合い、知的な刺激で心が生き生きするとき',
+      '温かい光が差し込む安心の場所で、自分の心の相棒や大切な感情と仲良く過ごせるとき',
+      'ふとした不安や過去の記憶がよぎっても、「今はもう大丈夫」と気づいて手放していけるとき',
+      '今ある恵まれた環境や安心感に満足し、好きな本や趣味に没頭して穏やかな幸福を味わうとき',
+      '溜め込んでいた感情が嵐のように吹き抜けたあと、心がすっきりと洗われて視界が開けるとき',
+      '古い価値観と新しい時代の架け橋となり、自分なりの自然な生き方を見つけていくとき',
+      '自分の気持ちと周りの状況のバランスを丁寧に測り、無理のない心地よい選択ができるとき',
+      'これまで守られてきた殻を破り、自分自身の誇りと勇気を持って新しい世界へ踏み出すとき',
+
+      // 獅子座 (120-149)
+      '自分の中に溜め込んでいた熱いエネルギーや感情が一気に表に出ようと動き出すとき',
+      '周りの空気や感情の影響を受けやすく、心身のデトックスと休息が必要なタイミングのとき',
+      '「今までの自分」から一歩脱皮して、新しいスタイルや考え方にイメージチェンジしたくなるとき',
+      '自分のプライドや礼儀を大切にしながら、背筋を伸ばして堂々と振る舞おうとするとき',
+      'どんな状況でも揺るがない自分なりの芯の強さと、静かな自信がゆっくり育っていくとき',
+      '「これまでのやり方」と「新しい時代の風」の両方を見比べ、自分に合ったスタイルを選ぶとき',
+      '目先の出来事にとらわれず、大きな夢や未来のビジョンに目を向けて心が広がるとき',
+      '自分の信じていることや「こうありたい」という思いを、まっすぐ熱量を持って表現するとき',
+      '自分の繊細な感性やアイデアを丁寧に形にし、世界にひとつだけの表現を生み出すとき',
+      '夜の静けさを経て心がみずみずしく潤い、新しい希望の光がキラキラと差し込んでくるとき',
+      '安心できる大きな支えのもとで、子どもらしい無邪気さや遊び心を思いきり楽しめるとき',
+      '一日の緊張をほどいてリラックスし、気のおけない人たちと穏やかで楽しい時間を過ごすとき',
+      'これまでの経験から得た知恵を活かし、自分の人生の舵をしっかりと握り直すとき',
+      '「早く自分らしさを表現したい！」という純粋なワクワクが心の中で膨らんでいくとき',
+      '自分の好きなことや喜びを隠さず表現し、明るく華やかなエネルギーを外に放つとき',
+      '感情の嵐が過ぎ去って心が晴れ渡り、温かい太陽の光に包まれるような安心感を得るとき',
+      '形式やルールにとらわれず、ありのままの素直な気持ちで楽しみながら周りと関わるとき',
+      '興味のある物事の仕組みや「なぜそうなるのか」をじっくり観察し、知的好奇心を満たすとき',
+      '枠にとらわれない自由な空間の中で、気の合う仲間とリラックスして心を通わせるとき',
+      '自然のエネルギーや生命力に触れることで、心と身体の元気が内側から湧いてくるとき',
+      '刺激や情報を受けすぎて少し頭がオーバーヒート気味になり、クールダウンが必要なとき',
+      '大切な思いやメッセージを素直に届けたり、遠くの世界とつながる嬉しいきっかけがあるとき',
+      'マニュアルやルールに頼らず、自分の直感とバランス感覚を信じてのびのび進むとき',
+      '周りの目や身なりを気にしなくなるほど、自分の好きな世界や作業に深く没頭するとき',
+      'すぐには答えが出ない長い道のりも、自分のペースで一歩ずつ着実に乗り越えていくとき',
+      '雨上がりの空に架かる虹のように、不安が希望へと変わり「大丈夫」と思えるサインが届くとき',
+      '長い夜が明けて新しい一日が始まるように、心が前向きになりフレッシュな希望が芽生えるとき',
+      '安心できる場所や温かいコミュニティに自然と人が集まり、穏やかなつながりが育つとき',
+      '言葉にならない繊細な感情や直感を大切にし、自分の心の声に優しく耳を澄ますとき',
+      '自分の本音や思いを隠さずオープンにし、風通しの良い軽やかな気持ちで次へ進むとき',
+
+      // 乙女座 (150-179)
+      '感情に流されず、物事を冷静に観察して自分なりの視点や考えをはっきりさせていくとき',
+      '迷いや雑念を手放して心をクリアにし、自分が本当に大切にしたい軸を見つめ直すとき',
+      '目に見えない優しさや安心感に守られていることを感じ、ほっと肩の力を抜けるとき',
+      '違いや立場を超えて純粋な心で関わり合い、無邪気な楽しさの中で心が開いていくとき',
+      '現実の忙しさから少し離れ、豊かな想像力やファンタジーの世界で心を遊ばせるとき',
+      '変化の波や日常のリズムを遊び心で楽しみながら、軽やかに気分転換ができるとき',
+      'たくさんの興味や感情を丁寧に整理して、自分の心の中を心地よく整えていくとき',
+      '新しい環境や挑戦に向けて、まずは小さな一歩から自分のペースで練習を始めるとき',
+      'これまでの常識にとらわれない独創的なアイデアや、未来志向のセンスが輝き出すとき',
+      '表面的な出来事の奥にある本当の意味や気持ちに気づき、深い理解へとたどり着くとき',
+      '「周りの期待に応えなきゃ」という思いに気づき、本当の自分の気持ちと向き合い始めるとき',
+      '隠していた本音や素顔を少しずつ表に出し、ありのままの自分で関わる勇気が湧くとき',
+      '揺れ動く感情や混乱をしっかりと落ち着かせ、自分の軸を保って状況を乗り切るとき',
+      '自分のルーツや家族とのつながりを見つめ直し、自分がここにいる安心感を確かめるとき',
+      '日常の小さな物事を丁寧に整え、自分らしい細やかな気配りやセンスが光るとき',
+      '抑え込んでいた本能的なエネルギーや感情が顔を出したとき、それを否定せず受け止めるとき',
+      '心の奥に溜まっていた思いが一気に溢れ出し、本音を吐き出すことでスッキリ浄化されるとき',
+      '理屈では説明できない直感やサインに敏感になり、心の奥の声に耳を傾けるとき',
+      '自分の実力やペースを試しながら、前向きなエネルギーで新しい課題にチャレンジするとき',
+      '同じ方向を目指す仲間や家族と力を合わせ、それぞれの役割を活かして前に進むとき',
+      'チームワークやルールの中で自分のポジションを見つけ、協力しながら楽しめるとき',
+      '自分の誇りや大切にしている信念をしっかりと守り、堂々と胸を張って歩むとき',
+      '自分の中の強い感情や衝動を上手にコントロールし、自信を持って向き合えるとき',
+      '純粋で素直な心を取り戻し、身近な存在との温かい信頼関係に癒やされるとき',
+      'ひとつの区切りを迎えて静かに気持ちを整え、次の新しいステージへの準備を始めるとき',
+      '神聖で穏やかな空気の中で心を清め、丁寧な所作や静かな時間からエネルギーを得るとき',
+      '気心の知れた人たちと上品で穏やかな会話を楽しめ、心が豊かに満たされていくとき',
+      '状況を冷静に見極めてリーダーシップを発揮し、自分の力で物事をまとめていくとき',
+      '本や資料、情報の中から大切なヒントを読み解き、自分だけの深い知恵を身につけるとき',
+      '目の前のやるべきことをテキパキと片付けて、次のステージへ軽やかに飛び出すとき',
+
+      // 天秤座 (180-209)
+      'これまでの経験や努力が美しい形となって実を結び、自分らしさが輝いて見えるとき',
+      '過去の経験がすべて糧となり、まったく新しいステージへ生まれ変わる準備が整うとき',
+      '昨日までの景色が一変するように新しい朝を迎え、新鮮な気持ちでスタートを切るとき',
+      '温かい輪の中で安心感を分かち合い、人とつながる心地よさをじっくり味わうとき',
+      '知識だけでなく、自分の心で感じた「本当の知恵」を大切な人と分かち合うとき',
+      '頭の中で描いていた理想や夢が、具体的な形となって少しずつ現実に近づいてくるとき',
+      '大切なものや繊細な心を優しく守り育てながら、安心できる環境を整えていくとき',
+      'たとえ周りが落ち着かない状況でも、自分の心の中に温かい安心の灯りを絶やさないとき',
+      '素晴らしい作品や先人の知恵に触れることで感性が磨かれ、心が豊かに刺激されるとき',
+      '不安や迷いの波を無事に乗り越えてホッと一息つき、安全な場所へたどり着くとき',
+      '知的な好奇心と優しいまなざしで物事を観察し、新しい発見や学びを楽しめるとき',
+      '深く集中して取り組んでいた作業を終え、達成感とともに外の空気を吸いに出るとき',
+      '結果や評価を気にせず、シャボン玉を膨らませるように無邪気な遊び心を楽しめるとき',
+      '無理に動き続けるのをやめてお昼寝をするように、心と身体に優しい休息をあげるとき',
+      '行きつ戻りつしながらも自分のリズムを整え、安心できる循環を作っていくとき',
+      'これまでのやり方や頼っていたものが変わっても、新しい流れに柔軟に乗っていくとき',
+      '第一線から一歩引いて全体を見守り、これまでの経験から静かな知恵を味わうとき',
+      '行き過ぎた行動や感情にブレーキがかかり、落ち着いて自分を見つめ直すとき',
+      'まだ表には出さず、自分の心の中で密かにアイデアや作戦を温めている充電のとき',
+      '伝統や昔から受け継がれてきた知恵に触れ、心の拠り所となる安心感を見つけるとき',
+      '開放的な空間や自然の空気の中でリフレッシュし、のびのびと自由を感じられるとき',
+      '小さな生き物や弱いものへの優しさが溢れ、心が穏やかで平和な気持ちに包まれるとき',
+      '新しい朝を告げるように気持ちが前向きになり、自分の声をまっすぐ外に届けられるとき',
+      'これまでの自分にはなかった新しい視点や才能が芽生え、より自由に羽ばたけるとき',
+      '季節の移ろいや小さな変化から大切なサインを受け取り、自然の流れに身を任せるとき',
+      '「強さ」と「優しさ」のバランスが調和し、相手の気持ちと自分の思いを尊重できるとき',
+      '日常の悩みから少し離れて高い視点から物事を見渡し、心がスーッと軽くなるとき',
+      '温かい光や良い影響に包まれて心が晴れやかになり、前向きなエネルギーが満ちるとき',
+      '異なる考えや新しい世界をつなぐ架け橋となり、視野が大きく広がっていくとき',
+      'これまでの学びや経験が深い知恵として身につき、落ち着いて次の扉を開くとき',
+
+      // 蠍座 (210-239)
+      '新しい景色や刺激に触れて好奇心が広がり、外の世界を楽しく探検し始めるとき',
+      '心の中に閉じ込めていた思いや優しさが溢れ出し、周りの空気を温かく満たしていくとき',
+      '信頼できる人と力を合わせて土台を作り、安心できる居場所を形にしていくとき',
+      '小さな希望の灯りを大切に抱えながら、自分の信じる道をまっすぐ歩み始めるとき',
+      'どんな波が押し寄せても揺るがない心の強さが育ち、落ち着いて状況を受け止められるとき',
+      '「これだ！」と思う宝物や夢中になれる対象を見つけ、情熱を持って掘り下げていくとき',
+      '表面的なことだけでなく、自分の心の奥深くにある本音や感情とじっくり向き合うとき',
+      '静かな夜の水面のように心が落ち着き、繊細な感情や直感を穏やかに味わえるとき',
+      '心の引っかかりや違和感を丁寧にケアして取り除き、スッキリと健やかな状態に戻すとき',
+      '安心できる人たちと温かい時間や食事を共にし、心のつながりと信頼を深めるとき',
+      '一人で抱え込んでいた苦しさから救い出され、周りの優しさに支えられて息を吹き返すとき',
+      '礼儀やマナーを大切にしながら、新しい人間関係や少し背伸びした世界を楽しめるとき',
+      '自分ならではの工夫やアイデアを試しながら、新しい解決策を生み出していくとき',
+      '必要な情報や人とのご縁を丁寧につなぎ合わせ、自分の居場所を整えていくとき',
+      '自分なりのルールや工夫を凝らしながら、遊び感覚で基礎の力を育てていくとき',
+      '緊張がふっと解けて思わず笑顔がこぼれるような、素直で明るい喜びが戻ってくるとき',
+      '誰かに頼るだけでなく、自分自身を励まし育てていく自立の力が心の中に芽生えるとき',
+      'これまでの努力が豊かな実りとなって現れ、落ち着いた充実感と安心感を味わうとき',
+      '周りの言葉や情報を素直に吸収し、自分なりの言葉で表現してコミュニケーションを楽しむとき',
+      '不安や迷いのカーテンを開けて真実を見つめ、新しい世界へ一歩踏み出す勇気が湧くとき',
+      '「こうしなければならない」という義務感を手放し、自分の本音と心の自由を選ぶとき',
+      '興味を持った対象に向かって勢いよく飛び出し、自分のエネルギーを思いきり使うとき',
+      '日常の小さな出来事の中に魔法のような楽しさを見つけ、心が軽やかに変身していくとき',
+      '心の奥からの大切な気づきや言葉を受け取り、静かな感動とともに自分を見つめ直すとき',
+      '表面的な姿にとらわれず、物事の本質や相手の本当の気持ちを深く見抜けるとき',
+      '新しい環境にも柔軟に馴染み、今いる場所に自分なりの安心基地を作り上げるとき',
+      '内側から湧き上がる力強いリズムに乗って、堂々と自分のペースで前進していくとき',
+      '目に見えない想像力や感性の世界が豊かに広がり、自分だけの王国で心を満たすとき',
+      '大切なものや自分自身の心を守るために、素直な気持ちで助けや理解を求められるとき',
+      '深刻になりすぎず遊び心とユーモアを持って、重たい空気を軽やかに吹き飛ばすとき',
+
+      // 射手座 (240-269)
+      'これまでの経験や歴史を振り返り、安心できる仲間と穏やかな時間を過ごすとき',
+      '大きな試練や荒波を乗り越えて心が強くなり、新しい冒険へ漕ぎ出すとき',
+      'お互いの考えや意見を尊重しながら、知的な駆け引きや対話を楽しむとき',
+      '失敗を恐れず、一歩ずつ自分の足でしっかりと歩み方を学び直すとき',
+      '高い視点から冷静にまわりを見渡し、物事の本質や大切なことに気づくとき',
+      'ルールやマナーを守りながら、仲間と一緒に目標に向かって楽しく力を合わせるとき',
+      '思いがけないチャンスや素敵な出会いが、そっと心のエントランスをノックするとき',
+      '目に見えない地道な努力や、隠れたところでコツコツ積み上げてきた基盤がしっかり固まるとき',
+      'あたたかな家庭や安心できる環境の中で、愛情に包まれて心からリラックスするとき',
+      '幸運の女神が微笑むように、明るい希望や嬉しいきっかけが舞い込んでくるとき',
+      '目に見えないものへの感謝や信仰心を持ち、内面から深い精神的な気づきを得るとき',
+      '古い殻を脱ぎ捨てて新しい時代の幕開けを告げ、自分の意思で堂々と立ち上がるとき',
+      '過去の出来事や隠されていた記憶が整理され、心がスッキリと軽くなるとき',
+      '歴史や確かな知識に触れ、大きな安心感とぶれない心の軸を育てるとき',
+      '自分の内面や心の奥を覗き込み、自分自身の本音やバイオリズムを静かに見つめ直すとき',
+      '広い海や未来を見据えながら、新しい世界へ飛び出すチャンスをじっと待つとき',
+      '新しい始まりの朝を迎え、晴れやかな気持ちで未来への祈りや誓いを立てるとき',
+      '日差しを避けて心地よい安心のスペースで身を守り、自分のペースでリラックスするとき',
+      'これまでの居場所から新しい環境や自由な世界へ向けて、軽やかに引っ越しをするとき',
+      '冬の寒さの中でも自分に必要なエネルギーや成果をコツコツと切り出し、備えるとき',
+      '少し背伸びをしたり視野を広げる工夫をしながら、新しい世界を覗いてみるとき',
+      '慣れない環境や文化の中でも、自分のスタイルを大切にしながら地道に暮らすとき',
+      '新しい世界やコミュニティへ飛び込み、多様な人々との出会いを楽しむとき',
+      '思いがけない幸運や優しいメッセージが、自分の家のドアを優しくノックするとき',
+      '子どもらしい無邪気な好奇心や遊び心を思いきり満たし、純粋な楽しさを味わうとき',
+      '自分の大切にしたい理想や信念の旗印を掲げ、まっすぐ前を向いて進むとき',
+      '頭の中にある理想やビジョンを、自分の手で一つひとつ丁寧に形にしていくとき',
+      '美しい自然や歴史あるつながりの中に身を置き、心穏やかな安らぎを感じるとき',
+      '目の前の日常の作業や役割にコツコツと集中し、着実に心を整えていくとき',
+      '大きな導きや信頼できる教えに心を開き、人生の深い叡智を受け取るとき',
+
+      // 山羊座 (270-299)
+      '自分の存在価値やこれまで頑張ってきた足跡を、周りにしっかりと認めてもらうとき',
+      '試練や逆境を乗り越えた経験が心のステンドグラスのように美しく輝き、深みを増すとき',
+      '精神的な成長や物事の仕組みを深く受け入れ、心が大きく大人に近づくとき',
+      '大きな目的や仲間との共同作業に向けて、同じ舟に乗り込んで心を一つにするとき',
+      '自分の中の情熱や決意を仲間と分かち合い、団結して前進していくとき',
+      '困難な状況や障害を乗り越えるために、地道な準備と基礎固めを着実に行うとき',
+      '表面的な情報に惑わされず、物事の本質を見抜く鋭い直感や知恵が働くとき',
+      '安全であたたかな室内の心地よさに包まれ、安心して歌を歌えるような穏やかなとき',
+      '美しい音楽や芸術、天からの優しさに包まれて、傷ついた心が癒やされるとき',
+      '自然体でいるだけで周りから温かいサポートや恵みがもたらされ、心が満たされるとき',
+      'たくさんの仲間や情報に囲まれながら、自分の興味のある世界を広げていくとき',
+      '専門的な学びや自然の摂理に触れ、知的好奇心が大きく刺激されるとき',
+      '自分の内側にある熱い情熱や信じるものに向かって、まっすぐ純粋にエネルギーを注ぐとき',
+      '過去の歴史や不変の真理に触れ、自分のなかに揺るがない確信が刻まれるとき',
+      '身の回りの細やかな気配りや、誰かを癒やすための優しい工夫が喜ばれるとき',
+      '無邪気な子ども時代のように、仲間と一緒に対等に楽しく遊べる時間を取り戻すとき',
+      '日常のプレッシャーから離れ、誰も見ていない自由な空間で自分を解放してリフレッシュするとき',
+      '誇りやアイデンティティを大切に守り抜き、自分のホームグラウンドで安心感を得るとき',
+      '小さな子どもが大きな荷物を抱えるように、一生懸命に自分の役割を果たそうと背伸びするとき',
+      '表立った場所ではなく、自分の心の中の聖域で仲間と静かに喜びを分かち合うとき',
+      'チームで競い合いながら、自分の実力を試したり技術を磨き上げる楽しさを知るとき',
+      '思い通りにならない結果も潔く受け入れ、大人の余裕と優しさで次へ進むとき',
+      'これまでの努力や勇敢な挑戦がしっかりと認められ、温かい称賛を受けるとき',
+      '自分の意志で静かな環境や安全な扉の向こうを選び、心の平穏を守り抜くとき',
+      '珍しいものや美しいインテリアに囲まれて、自分のこだわりやセンスを上品に楽しむとき',
+      '自分の内面にある豊かな感受性や潤いを取り戻し、みずみずしい感性で世界を味わうとき',
+      '長い道のりを一歩一歩のぼるように、自分のペースで人生の目的や高みを目指して歩むとき',
+      'たくさんのアイデアや可能性を安全な空間の中で大切に育て、準備を整えるとき',
+      '日常の小さなサインや偶然の出来事から、自分に必要な大切なメッセージを読み解くとき',
+      '信頼できる人々と密かに重要な取り決めを行い、次のステップへ向けて真剣に計画を練るとき',
+
+      // 水瓶座 (300-329)
+      '歴史ある温かな学び舎や伝統の中で、自分の原点となる安心感を見つけるとき',
+      '突然の感情の解放や思いがけない出来事をきっかけに、心の澱が一気に洗い流されるとき',
+      'これまでの集団や組織から一歩離れ、自分の自由な意思を取り戻すために旅立つとき',
+      '常識にとらわれない独自の知恵や癒やしのスキルを使い、自分の世界を広げるとき',
+      '先祖やルーツ、信頼できる仲間たちの絆を感じ、大きな安心感に包まれるとき',
+      'ドラマや物語の世界に深く浸り、日常を忘れて自分のなかの表現力を遊ばせるとき',
+      '予想もしなかった新しい自分や、これまでにない新しい可能性がポコっと誕生するとき',
+      '周囲の期待に合わせて自分をきれいに飾り、心地よい仮面やスタイルを楽しむとき',
+      '自分の信じる理想やメッセージを時代の風に乗せて、大きく遠くへ飛ばしていくとき',
+      '一時的なブームや評価にとらわれず、本当に自分にとって大切な価値を見極めるとき',
+      '外の喧騒から離れて自分の内面と深く向き合い、自分だけのインスピレーションを受け取るとき',
+      '一段ずつ着実にステップアップしながら、自分の目標や理想に向かって地道に上がるとき',
+      '今の自分の状態や心のコンディションを客観的に測り、無理のないペースを保つとき',
+      '見えないトンネルを抜けるように、不安や停滞期をくぐり抜けて新しい光の射す方へ出るとき',
+      '身近な人と穏やかで温かい信頼関係を結び、ほっと心が和む時間を過ごすとき',
+      '自分の仕事や役割に責任を持ち、プロフェッショナルな意識で着実に結果を残していくとき',
+      '大切なものや自分の領域をしっかりと守り抜く強さと、誠実な優しさが育つとき',
+      'まとっていた仮面を脱ぎ捨てて、ありのままの素顔の自分で堂々と向き合うとき',
+      'これまでのトラブルや心の中のモヤモヤがすっきりと鎮まり、平和な日常が戻るとき',
+      '希望や癒やしのメッセージをそっと心に宿し、大切な人に優しさを届けるとき',
+      '深い悲しみや幻滅を味わったあとだからこそ、本当に大切なものに気づいて立ち上がるとき',
+      'ルールに縛られず、自由な発想で自分の好きな世界や遊び場を大きく広げるとき',
+      '自分の感情や身体のエネルギーをユーモラスに表現し、のびのびと解放して楽しむとき',
+      '過去の経験や失敗から得た知恵を宝物に変え、誰かに優しくアドバイスをできるとき',
+      '左右のバランスが整い、自分の個性や才能がいちばん輝く形で美しく羽ばたき始めるとき',
+      '日々のメンテナンスや小さな工夫を重ねながら、自分のシステムを心地よく整えるとき',
+      '古い器の中でも大切に守られてきた美しい感性や思い出を、愛おしく振り返るとき',
+      '古い環境や合わなくなった人間関係を思いきり手放し、すっきりと身軽になるとき',
+      '長い繭（まゆ）の期間を終えて、ついに自分らしい新しい姿で外の世界へ羽ばたき始めるとき',
+      '多くの仲間が集うオープンな広場で、お互いの個性を認め合いながら楽しく交流するとき',
+
+      // 魚座 (330-359)
+      'たくさんの人々のエネルギーや多様な価値観が交差する活気ある場に触れるとき',
+      '外の世界のプレッシャーや刺激から離れ、安全な場所で自分を優しく守り抜くとき',
+      '長い年月をかけて自分のなかに積み重なってきた、ぶれない本質や強さに気づくとき',
+      '選択肢が多くて少し迷いやすい時こそ、自分のペースを崩さずマイペースに進むとき',
+      'あたたかなコミュニティの催しや人との優しいふれあいの中で、心がほっこり満たされるとき',
+      '規律やマナーを美しく整え、仲間と一緒に息の合った堂々とした歩みを見せるとき',
+      '心の中の静かな場所に十字架を立てるように、自分の精神的支柱や信仰心を確かめるとき',
+      '自分の内側から湧き上がる希望や新しいテーマを高らかに鳴らし、周りを元気づけるとき',
+      '一歩先を目指して軽やかに駆け抜けるような、前向きなチャレンジ精神が高まるとき',
+      '高い空の上から広い視野で自分の人生や現状を見渡し、自由な開放感を味わうとき',
+      '未知の知識や新しい世界への扉を開くため、純粋な好奇心を持って挑戦するとき',
+      '新しい環境や試練をクリアしながら、自分のなかの新しい才能や強さを証明していくとき',
+      'これまでの戦いや緊張を終えて武器をしまい、平和で穏やかな時間を大切にするとき',
+      '自分の感性や美意識を上品にまとい、プライドを持ってしなやかに振る舞うとき',
+      '全体を見渡し、細やかな気配りと愛情を持ってまわりの人たちを温かくサポートするとき',
+      '宇宙や自然のインスピレーションがとめどなく流れ込み、創造力が豊かに溢れ出るとき',
+      '春の訪れを祝うパレードのように、華やかで明るい気持ちになってお祭りを楽しむとき',
+      '大きな安心のテントに包まれているような感覚になり、どんなことも包み込んで休めるとき',
+      '信頼できる師匠やガイドから大切な知恵を受け継ぎ、心の成長を深く実感するとき',
+      '心を満たす温かい食事や準備が整い、大切な人たちと満ち足りた時間を味わうとき',
+      '無邪気な子どもや純粋な存在への愛おしさがあふれ、献身的な優しさが発揮されるとき',
+      '新しい時代のインスピレーションや生き方のルールをしっかりと言葉にして受け取るとき',
+      '目に見えない不思議な世界やスピリチュアルな現象に心を開き、深い直感を味わうとき',
+      '自分だけの小さな楽園や安心できる安全基地にこもり、心穏やかに過ごすとき',
+      '心の中の不要な迷いや古い価値観をきれいに浄化し、純粋な状態へリセットするとき',
+      '新しいサイクルの始まりに向けて、物事の方向性を静かに切り替える準備をするとき',
+      'これまでの努力や学びが豊かな収穫となって実を結び、満ち足りた実感を味わうとき',
+      '豊かで穏やかな愛のエネルギーに満たされ、安心感の中で心がすっぽり満たされるとき',
+      '一つの光がさまざまな色に分かれるように、自分の多彩な才能や可能性を多方面に広げるとき',
+      'すべての経験を統合し、どっしりとした不動の存在感と深い愛に包まれて次のサイクルへ向かうとき'
+    ];
+
+    const SIGN_ESSENCES = [
+      '純粋な直感と新しいスタートを切る',
+      '五感の心地よさと自分のペースを守る',
+      '軽やかな好奇心で新しい風を取り入れる',
+      '心の安全基地と温かい絆を育む',
+      '自分らしい輝きと創造性を表現する',
+      '繊細な観察力で日常を丁寧に整える',
+      '心地よい調和と対等な関係性を築く',
+      '深い集中力で本質と向き合い変容する',
+      '広い視野と自由な探求心で枠を超える',
+      '確かな土台を築き自分の力で歩み出す',
+      '常識にとらわれない独自の未来を描く',
+      'すべてを優しく受け入れ心を浄化する'
+    ];
+
+    const DEGREE_THEMES = [
+      '新しいステージへの扉を開き、純粋な衝動のままに第一歩を踏み出す',
+      '外の世界の喧騒から離れ、自分だけの安心できる空間とリズムを整える',
+      '身近な好奇心を入り口にして、新しい視点やコミュニケーションを楽しむ',
+      'これまでの枠組みを見直し、本当に大切なものだけを手元に残す',
+      '自分の内側にある「好き・得意」という小さな火を大切に育てる',
+      '無理に背伸びをするのをやめ、等身大の自分で心地よく呼吸する',
+      '既存のルールや「みんなと同じ」を手放し、新しい選択肢を探し始める',
+      '心の奥底にある本音と静かに向き合い、次の季節への栄養を蓄える',
+      '視点を高く上げて、今いる場所とは違う広い世界の可能性に気づく',
+      '一歩ずつ着実に自分の足元を固め、揺るがない自信の種をまく',
+      '固定観念から自由になり、ユニークな発想で自分らしい居場所を作る',
+      'すべてを優しく包み込み、次の新しい芽吹きに向けて心を穏やかに休める'
+    ];
+
+    function getSabianMessage(signIndex, degreeObj) {
+      const actualDegree = degreeObj.actualDegree;
+      const index360 = signIndex * 30 + actualDegree;
+      const symbolName = SABIAN_360[index360] || '';
+      const themeIndex = (signIndex * 3 + actualDegree) % DEGREE_THEMES.length;
+      return {
+        title: `${SIGNS[signIndex].name} ${actualDegree}度`,
+        shortTitle: `${SIGNS[signIndex].name}${actualDegree}度`,
+        symbolName: `「${symbolName}」`,
+        theme: DEGREE_THEMES[themeIndex],
+        essence: SIGN_ESSENCES[signIndex]
+      };
+    }
+
+    function getMomAgeDomain(age) {
+      if (age <= 25) return { name: '金星期（16〜25歳）', planet: '金星♀', desc: '自分自身の感性や「好き」を大切にし、人生の彩りを育む時期です。' };
+      if (age <= 35) return { name: '太陽期（26〜35歳）', planet: '太陽☉', desc: '自分らしい生き方や家庭・社会での役割を主体的に築いていく時期です。' };
+      if (age <= 45) return { name: '火星期（36〜45歳）', planet: '火星♂', desc: '大切なものを守るためにエネルギーを注ぎ、自分の軸を確立する時期。頑張りすぎに注意して自分の本音も大切に！' };
+      if (age <= 55) return { name: '木星期（46〜55歳）', planet: '木星♃', desc: 'これまでの経験を活かして視野を広げ、人生の後半戦に向けて「心のゆとりと寛容さ」を育てる時期です。' };
+      return { name: '土星期以降（56歳〜）', planet: '土星♄', desc: '不要な重荷を手放し、本当に大切なものだけを残して穏やかに人生を深める時期です。' };
+    }
+
+    // ============================================================================
+    // 3. UIレンダリング＆インタラクション制御
+    // ============================================================================
+    let currentTab = 'all';
+    let currentSummaryText = '';
+
+    function renderPlanetBadge(label, info, uncertain = false) {
+      return `
+        <div class="bg-white rounded-lg p-2 border border-stone-200/80 flex flex-col items-center justify-center transition-opacity ${
+          uncertain ? 'opacity-45 border-dashed' : 'opacity-100'
+        }">
+          <span class="text-[10px] text-stone-500 font-medium">${label}</span>
+          <span class="text-base font-bold ${info.sign.color} my-0.5">${info.sign.symbol}</span>
+          <span class="text-xs font-bold text-stone-800">${info.sign.name}</span>
+          ${uncertain ? '<span class="text-[9px] text-amber-700 leading-none mt-0.5">境界日</span>' : ''}
+        </div>
+      `;
+    }
+
+    function generateSummaryText(diagnosis) {
+      const { mom, child, bothMoonsClear, childMainDomain, childPSabian, momPSabian, childPMoonSabian, momPMoonSabian } = diagnosis;
+      const childMercury = MERCURY_DATA[child.natal.mercury.sign.id];
+      const momMercury = MERCURY_DATA[mom.natal.mercury.sign.id];
+      const childMoonCare = MOON_CARE_DATA[child.natal.moon.sign.id];
+      const momMoonCare = MOON_CARE_DATA[mom.natal.moon.sign.id];
+      const childPMoonElem = PROGRESSED_MOON_ELEMENTS[child.progressed.moon.sign.element];
+      const momPMoonElem = PROGRESSED_MOON_ELEMENTS[mom.progressed.moon.sign.element];
+
+      let text = `✨【星と心の親子ナビ 鑑定サマリー】✨\n`;
+      text += `お子さん（満${child.age}歳）：太陽 ${child.natal.sun.sign.name} / 水星 ${child.natal.mercury.sign.name}`;
+      text += child.isMoonCertain ? ` / 月 ${child.natal.moon.sign.name}\n` : ` / 月 ${child.natal.moon.sign.name}付近（※出生時間未入力）\n`;
+      text += `お母さん（満${mom.age}歳）：太陽 ${mom.natal.sun.sign.name} / 水星 ${mom.natal.mercury.sign.name}`;
+      text += mom.isMoonCertain ? ` / 月 ${mom.natal.moon.sign.name}\n\n` : ` / 月 ${mom.natal.moon.sign.name}付近（※出生時間未入力）\n\n`;
+
+      text += `❶【会話のすれ違い解消】水星×水星\n`;
+      text += `・お子さんの水星（${child.natal.mercury.sign.name}）：${childMercury.style}\n`;
+      text += `・お母さんの水星（${mom.natal.mercury.sign.name}）：${momMercury.style}\n`;
+      text += `・すんなり届く言い換え：${childMercury.rephrase}\n\n`;
+
+      if (bothMoonsClear) {
+        text += `❷【心の満たし合い】月×月のセルフケア\n`;
+        text += `・お子さん（月・${child.natal.moon.sign.name}）への魔法の声かけ：\n  ${childMoonCare.magicWords}\n`;
+        text += `・お母さん（月・${mom.natal.moon.sign.name}）のセルフケア処方箋：\n  ${momMoonCare.momPrescription}\n\n`;
+      } else {
+        text += `❷【心の満たし合い】月×月のセルフケア（※出生時間未入力のため参考値）\n`;
+        text += `・お子さん（月・${child.natal.moon.sign.name}目安）への魔法の声かけ：\n  ${childMoonCare.magicWords}\n\n`;
+      }
+
+      text += `❸【成長段階の土台】年齢域ケア\n`;
+      if (childMainDomain === 'moon') {
+        text += `・現在の主役：月の年齢域（0〜7歳）\n`;
+      } else if (childMainDomain === 'mercury') {
+        text += `・現在の主役：水星の年齢域（8〜15歳・${child.natal.mercury.sign.name}）\n  ${childMercury.schoolReason}\n`;
+      } else {
+        text += `・現在の主役：金星の年齢域（16〜25歳・${child.natal.venus.sign.name}）\n  ${VENUS_DATA[child.natal.venus.sign.id].independence}\n`;
+      }
+      text += `・心の安全基地（0〜7歳の月）：${childMoonCare.childEnv}\n\n`;
+
+      text += `❹【親子のバイオリズム】P太陽＆P月\n`;
+      text += `・お子さんの今年のテーマ（P太陽 ${childPSabian.title} ${childPSabian.symbolName}）：\n  ${childPSabian.theme}\n`;
+      text += `・お母さんの今年のテーマ（P太陽 ${momPSabian.title} ${momPSabian.symbolName}）：\n  ${momPSabian.theme}\n`;
+      if (child.isMoonCertain) {
+        text += `・お子さんの心の季節（P月 ${childPMoonSabian.title} ${childPMoonSabian.symbolName}）：【${childPMoonElem.season}】（次の季節まであと約${child.progressed.monthsToNextSign}ヶ月）\n`;
+      }
+      if (mom.isMoonCertain) {
+        text += `・お母さんの心の季節（P月 ${momPMoonSabian.title} ${momPMoonSabian.symbolName}）：【${momPMoonElem.season}】\n`;
+      }
+      return text;
+    }
+
+    function runDiagnosis(shouldScroll = false) {
+      const momDate = document.getElementById('mom-date').value;
+      const momTime = document.getElementById('mom-time').value;
+      const childDate = document.getElementById('child-date').value;
+      const childTime = document.getElementById('child-time').value;
+
+      if (!momDate || !childDate) return;
+
+      const mom = calculateChart(momDate, momTime);
+      const child = calculateChart(childDate, childTime);
+      const bothMoonsClear = mom.isMoonCertain && child.isMoonCertain;
+
+      let childMainDomain = 'mercury';
+      if (child.age <= 7) {
+        childMainDomain = 'moon';
+      } else if (child.age <= 15) {
+        childMainDomain = 'mercury';
+      } else {
+        childMainDomain = 'venus';
+      }
+
+      const diagnosis = {
+        mom,
+        child,
+        bothMoonsClear,
+        childMainDomain,
+        childPSabian: getSabianMessage(child.progressed.sun.sign.id, child.progressed.sun),
+        momPSabian: getSabianMessage(mom.progressed.sun.sign.id, mom.progressed.sun),
+        childPMoonSabian: getSabianMessage(child.progressed.moon.sign.id, child.progressed.moon),
+        momPMoonSabian: getSabianMessage(mom.progressed.moon.sign.id, mom.progressed.moon),
+        momDomain: getMomAgeDomain(mom.age)
+      };
+
+      currentSummaryText = generateSummaryText(diagnosis);
+
+      // 1. プロフィール描画
+      const profileHtml = `
+        <section class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-stone-100">
+            <h3 class="text-sm font-bold text-stone-700 flex items-center gap-2">
+              <i data-lucide="compass" class="w-4 h-4 text-amber-500"></i>
+              算出された親子の天体プロフィール
+            </h3>
+            ${(!mom.isMoonCertain || !child.isMoonCertain) ? `
+              <span class="text-xs bg-amber-50 text-amber-800 px-2.5 py-1 rounded-md border border-amber-200 flex items-center gap-1">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-600"></i>
+                月の星座が切り替わる日のため、月関連の診断は参考表示（薄め）になります
+              </span>
+            ` : ''}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-sky-50/50 rounded-xl p-3.5 border border-sky-100">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-sky-900">お子さん（満${child.age}歳）</span>
+                <span class="text-[11px] text-sky-700 bg-white px-2 py-0.5 rounded-full border border-sky-200">
+                  ${child.hasTime ? `出生時間 ${childTime}` : '時間未入力（正午計算）'}
+                </span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 text-center">
+                ${renderPlanetBadge('太陽☉', child.natal.sun)}
+                ${renderPlanetBadge('月☽', child.natal.moon, !child.isMoonCertain)}
+                ${renderPlanetBadge('水星☿', child.natal.mercury)}
+                ${renderPlanetBadge('金星♀', child.natal.venus)}
+              </div>
+            </div>
+
+            <div class="bg-rose-50/50 rounded-xl p-3.5 border border-rose-100">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-rose-900">お母さん（満${mom.age}歳）</span>
+                <span class="text-[11px] text-rose-700 bg-white px-2 py-0.5 rounded-full border border-rose-200">
+                  ${mom.hasTime ? `出生時間 ${momTime}` : '時間未入力（正午計算）'}
+                </span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 text-center">
+                ${renderPlanetBadge('太陽☉', mom.natal.sun)}
+                ${renderPlanetBadge('月☽', mom.natal.moon, !mom.isMoonCertain)}
+                ${renderPlanetBadge('水星☿', mom.natal.mercury)}
+                ${renderPlanetBadge('金星♀', mom.natal.venus)}
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+      document.getElementById('profile-container').innerHTML = profileHtml;
+
+      // 2. タブ描画
+      const tabs = [
+        { id: 'all', label: 'すべて見る（4つの柱）' },
+        { id: 'mercury', label: '❶ 会話のすれ違い解消' },
+        { id: 'moon', label: '❷ 心の満たし合い（月）' },
+        { id: 'age', label: '❸ 年齢域の土台ケア' },
+        { id: 'biorhythm', label: '❹ 親子のバイオリズム' },
+      ];
+      document.getElementById('tabs-container').innerHTML = tabs.map(tab => `
+        <button
+          type="button"
+          onclick="switchTab('${tab.id}')"
+          class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+            currentTab === tab.id
+              ? 'bg-stone-800 text-white shadow-xs'
+              : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-50'
+          }"
+        >
+          ${tab.label}
+        </button>
+      `).join('');
+
+      // 3. 4つの柱セクション描画
+      let sectionsHtml = '';
+
+      // 柱 ❶ 水星×水星
+      if (currentTab === 'all' || currentTab === 'mercury') {
+        const cMer = MERCURY_DATA[child.natal.mercury.sign.id];
+        const mMer = MERCURY_DATA[mom.natal.mercury.sign.id];
+        const sameMercury = mom.natal.mercury.sign.id === child.natal.mercury.sign.id;
+        sectionsHtml += `
+          <section class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-sky-200/80 space-y-5">
+            <div class="border-b border-stone-100 pb-4">
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full mb-2">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                第1の柱：水星 × 水星のコミュニケーション診断
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-stone-800">
+                ❶【会話のすれ違い解消】なぜ言葉が届かないのか、どう言えば伝わるのか
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-sky-50/60 rounded-xl p-4 border border-sky-100">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-lg">${child.natal.mercury.sign.symbol}</span>
+                  <span class="text-xs font-bold text-sky-900">お子さんの水星：${child.natal.mercury.sign.name}</span>
+                </div>
+                <p class="text-sm font-bold text-stone-800 mb-1">${cMer.style}</p>
+                <p class="text-xs text-stone-600 leading-relaxed">
+                  お子さんはこの「言葉の受信アンテナ」を持っています。お母さんとアンテナの種類が違うと、良かれと思った言葉も別の意味に受け取られやすくなります。
+                </p>
+              </div>
+
+              <div class="bg-rose-50/60 rounded-xl p-4 border border-rose-100">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-lg">${mom.natal.mercury.sign.symbol}</span>
+                  <span class="text-xs font-bold text-rose-900">お母さんの水星：${mom.natal.mercury.sign.name}</span>
+                </div>
+                <p class="text-sm font-bold text-stone-800 mb-1">${mMer.style}</p>
+                <p class="text-xs text-stone-600 leading-relaxed">
+                  ${sameMercury
+                    ? `親子で同じ「${mom.natal.mercury.sign.name}（${mMer.shortTag}）」タイプ！思考のテンポが似ているため、お母さんがリラックスして話すだけで自然と心が通じ合います。`
+                    : `お母さんは「${mom.natal.mercury.sign.name}（${mMer.shortTag}）」の感覚で伝えようとしますが、お子さんは「${child.natal.mercury.sign.name}（${cMer.shortTag}）」のチャンネルに合わせています。`
+                  }
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 rounded-xl p-4 sm:p-5 border border-stone-200/70 space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-rose-200/80">
+                  <span class="inline-block text-[11px] font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md mb-2">
+                    つい言いがちなすれ違いフレーズ
+                  </span>
+                  <p class="text-sm text-stone-700 leading-relaxed">${cMer.mismatch}</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-emerald-200/80">
+                  <span class="inline-block text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md mb-2">
+                    すんなり届く言い換え例
+                  </span>
+                  <p class="text-sm font-medium text-stone-800 leading-relaxed">${cMer.rephrase}</p>
+                </div>
+              </div>
+
+              <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200/70 flex items-start gap-3">
+                <i data-lucide="feather" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                <div>
+                  <h4 class="text-xs font-bold text-amber-900 mb-1">
+                    お子さんがプレッシャーを感じない「会話の間合い・距離感」
+                  </h4>
+                  <p class="text-sm text-stone-700 leading-relaxed">${cMer.distance}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      // 柱 ❷ 月×月
+      if (currentTab === 'all' || currentTab === 'moon') {
+        const cMoon = MOON_CARE_DATA[child.natal.moon.sign.id];
+        const mMoon = MOON_CARE_DATA[mom.natal.moon.sign.id];
+        sectionsHtml += `
+          <section class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-indigo-200/80 space-y-5 transition-opacity ${
+            bothMoonsClear ? 'opacity-100' : 'opacity-55 bg-stone-50/80'
+          }">
+            <div class="border-b border-stone-100 pb-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full">
+                  <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+                  第2の柱：月 × 心の安全基地ケア
+                </div>
+                ${!bothMoonsClear ? `
+                  <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
+                    ※出生時間が未入力で月の境界日のため薄く表示しています
+                  </span>
+                ` : ''}
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-stone-800">
+                ❷【心の満たし合い】どんな状態が一番安心できるか／お母さん自身の心の保ち方
+              </h3>
+              ${!bothMoonsClear ? `
+                <p class="text-xs text-stone-600 mt-1.5">
+                  親子どちらかの生年月日が「月の星座が移動する日」にあたります。母子手帳などで出生時間を入力すると、より正確な月のケアが表示されます（現在は正午時点の星座で表示中）。
+                </p>
+              ` : ''}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="bg-indigo-50/50 rounded-xl p-5 border border-indigo-100 space-y-3.5">
+                <span class="text-sm font-bold text-indigo-950 flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+                  お子さんへのケア（月：${child.natal.moon.sign.name}）
+                </span>
+                <div>
+                  <span class="text-xs font-bold text-indigo-800 block mb-1">🏠 心の充電に必要な環境</span>
+                  <p class="text-sm text-stone-700 bg-white/80 p-3 rounded-lg border border-indigo-100">${cMoon.childEnv}</p>
+                </div>
+                <div>
+                  <span class="text-xs font-bold text-indigo-800 block mb-1">✨ 言われるとホッとする「魔法の声かけ」</span>
+                  <p class="text-sm font-bold text-indigo-950 bg-white p-3.5 rounded-lg border border-indigo-200 shadow-2xs">${cMoon.magicWords}</p>
+                </div>
+              </div>
+
+              <div class="bg-rose-50/50 rounded-xl p-5 border border-rose-100 space-y-3.5">
+                <span class="text-sm font-bold text-rose-950 flex items-center gap-1.5">
+                  <i data-lucide="coffee" class="w-4 h-4 text-rose-600"></i>
+                  お母さんへのケア（月：${mom.natal.moon.sign.name}）
+                </span>
+                <div>
+                  <span class="text-xs font-bold text-rose-800 block mb-1">🌿 限界を感じたときの「セルフケア処方箋」・アロマ</span>
+                  <p class="text-sm text-stone-700 bg-white p-4 rounded-lg border border-rose-200 leading-relaxed shadow-2xs">${mMoon.momPrescription}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      // 柱 ❸ 年齢域の土台ケア
+      if (currentTab === 'all' || currentTab === 'age') {
+        const cMoon = MOON_CARE_DATA[child.natal.moon.sign.id];
+        let domainCard = '';
+        if (childMainDomain === 'moon') {
+          domainCard = `
+            <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-200 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded-md">現在の主役：0〜7歳【月の年齢域】</span>
+                <span class="text-sm font-bold text-emerald-950">月のサイン：${child.natal.moon.sign.name}</span>
+              </div>
+              <p class="text-sm text-stone-700 leading-relaxed">
+                今は人生の土台となる「安心感・素の自分・甘えの土台」を育む大切な時期です。${cMoon.childTrait}
+              </p>
+            </div>
+          `;
+        } else if (childMainDomain === 'mercury') {
+          domainCard = `
+            <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-200 space-y-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded-md">現在の主役：8〜15歳【水星の年齢域】</span>
+                <span class="text-sm font-bold text-emerald-950">お子さんの水星：${child.natal.mercury.sign.name}</span>
+              </div>
+              <p class="text-sm font-medium text-stone-800 leading-relaxed">
+                小〜中学生は「知性・言葉・集団適応」を学ぶ水星期。まさに不登校が一番起きやすい時期です。<br />
+                <span class="text-emerald-900 font-bold">【なぜ学校のスタイルがしんどくなりやすいか】</span><br />
+                ${MERCURY_DATA[child.natal.mercury.sign.id].schoolReason}
+              </p>
+            </div>
+          `;
+        } else {
+          const cVenus = VENUS_DATA[child.natal.venus.sign.id];
+          domainCard = `
+            <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-200 space-y-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded-md">現在の主役：16〜25歳【金星の年齢域】</span>
+                <span class="text-sm font-bold text-emerald-950">お子さんの金星：${child.natal.venus.sign.name}</span>
+              </div>
+              <p class="text-sm text-stone-800 leading-relaxed">
+                高校生以降は「みんなと同じ」から卒業し、「私はこれが好き！」という感性を育てることが自立の鍵になります。
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div class="bg-white p-3.5 rounded-lg border border-emerald-100">
+                  <span class="text-xs font-bold text-emerald-800 block mb-1">💖 ときめきの種</span>
+                  <p class="text-xs text-stone-700 leading-relaxed">${cVenus.spark}</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-lg border border-emerald-100">
+                  <span class="text-xs font-bold text-emerald-800 block mb-1">🌱 自分らしい自立のヒント</span>
+                  <p class="text-xs text-stone-700 leading-relaxed">${cVenus.independence}</p>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        sectionsHtml += `
+          <section class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-emerald-200/80 space-y-5">
+            <div class="border-b border-stone-100 pb-4">
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full mb-2">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                第3の柱：年齢域（プラネタリー・エイジ）
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-stone-800">
+                ❸【今の年齢の課題と安全基地】なぜ今立ち止まっているのか＆心の栄養補給
+              </h3>
+            </div>
+
+            <div class="space-y-4">
+              ${domainCard}
+
+              <div class="bg-amber-50/60 rounded-xl p-5 border border-amber-200/80 space-y-2 ${!child.isMoonCertain ? 'opacity-65' : ''}">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                    <i data-lucide="moon" class="w-4 h-4 text-amber-600"></i>
+                    心の栄養補給：いつでも戻れる「0〜7歳の月（${child.natal.moon.sign.name}）」への立ち返り
+                  </span>
+                  ${!child.isMoonCertain ? '<span class="text-[11px] text-amber-800 bg-white px-2 py-0.5 rounded border border-amber-200">※出生時間未入力のため参考表示</span>' : ''}
+                </div>
+                <p class="text-sm text-stone-700 leading-relaxed">
+                  お子さんが何歳であっても、心が疲れたときは一度「0〜7歳の月」に戻ってエネルギーを充電します。${cMoon.childTrait}
+                </p>
+                <p class="text-sm font-medium text-amber-950 bg-white/90 p-3 rounded-lg border border-amber-200/70">
+                  💡 <strong>今すぐできる心の栄養補給：</strong> ${cMoon.childEnv}を用意し、${cMoon.magicWords} と声をかけてあげましょう。
+                </p>
+              </div>
+
+              <div class="bg-stone-50 rounded-xl p-4 border border-stone-200/80 flex items-start gap-3">
+                <i data-lucide="sun" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <h4 class="text-xs font-bold text-stone-800 mb-0.5">
+                    お母さん自身の現在の年齢域：${diagnosis.momDomain.name}（主役：${diagnosis.momDomain.planet}）
+                  </h4>
+                  <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                    ${diagnosis.momDomain.desc} お子さんの不登校を通して、お母さん自身も「これまでの頑張り方」を見直す大切なタイミングに立っています。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      // 柱 ❹ 親子のバイオリズム
+      if (currentTab === 'all' || currentTab === 'biorhythm') {
+        const { childPSabian, momPSabian, childPMoonSabian, momPMoonSabian } = diagnosis;
+        const cElemKey = child.progressed.moon.sign.element;
+        const cPData = PROGRESSED_MOON_ELEMENTS[cElemKey];
+        const cSignId = child.progressed.moon.sign.id;
+
+        const mElemKey = mom.progressed.moon.sign.element;
+        const mPData = PROGRESSED_MOON_ELEMENTS[mElemKey];
+
+        sectionsHtml += `
+          <section class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-amber-200/80 space-y-6">
+            <div class="border-b border-stone-100 pb-4">
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full mb-2">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                第4の柱：プログレス（体内時計のバイオリズム）
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-stone-800">
+                ❹【1年のテーマ＆心の季節】今、親子に流れている時間の波
+              </h3>
+            </div>
+
+            <!-- P太陽 -->
+            <div class="space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <h4 class="text-sm font-bold text-stone-800 flex items-center gap-2">
+                  <i data-lucide="sun" class="w-4 h-4 text-amber-500"></i>
+                  プログレスの太陽（P太陽）：この1年間の大きなテーマ
+                </h4>
+                <span class="text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/70 self-start sm:self-auto">
+                  ※直近の誕生日から次の誕生日までの1年間のリズムです
+                </span>
+              </div>
+              <p class="text-xs text-stone-500 leading-relaxed">
+                プログレスの太陽は1年に約1度ずつ進みます。<strong>次の誕生日が来たときにもう一度診断すると、また新しい1年のメッセージへと切り替わります。</strong>
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-br from-amber-50/80 to-orange-50/50 rounded-xl p-4 border border-amber-200/80 space-y-2">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-amber-950">お子さん（${child.lastBirthdayYear}年の誕生日から1年間）</span>
+                    ${child.progressed.isPSunTransition ? '<span class="text-[11px] font-bold bg-rose-500 text-white px-2 py-0.5 rounded-full">30年に1度のサイン転換期！</span>' : ''}
+                  </div>
+                  <p class="text-xs text-amber-800 font-medium">現在の度数：${childPSabian.title}</p>
+                  <p class="text-xs font-bold text-amber-900 bg-white/80 px-2.5 py-1.5 rounded-lg border border-amber-200/70">✨ サビアンシンボル：${childPSabian.symbolName}</p>
+                  <p class="text-sm font-bold text-stone-800 leading-relaxed">「${childPSabian.theme}」1年です。</p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    ${child.progressed.isPSunTransition
+                      ? '現在、P太陽が次の星座へ切り替わる大きな節目（イングレス）にあります。これまでの枠組み（学校など）が合わなくなるのは、次の新しいステージへ脱皮するサインです。'
+                      : `今年は「${childPSabian.essence}」ことを学ぶ1年。目に見える変化がなくても、内面では着実に新しい自分へと成長しています。`
+                    }
+                  </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-rose-50/70 to-amber-50/40 rounded-xl p-4 border border-rose-200/80 space-y-2">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-rose-950">お母さん（${mom.lastBirthdayYear}年の誕生日から1年間）</span>
+                    ${mom.progressed.isPSunTransition ? '<span class="text-[11px] font-bold bg-rose-500 text-white px-2 py-0.5 rounded-full">人生の大きな転換期！</span>' : ''}
+                  </div>
+                  <p class="text-xs text-rose-800 font-medium">現在の度数：${momPSabian.title}</p>
+                  <p class="text-xs font-bold text-rose-900 bg-white/80 px-2.5 py-1.5 rounded-lg border border-rose-200/70">✨ サビアンシンボル：${momPSabian.symbolName}</p>
+                  <p class="text-sm font-bold text-stone-800 leading-relaxed">「${momPSabian.theme}」1年です。</p>
+                  <p class="text-xs text-stone-600 leading-relaxed">
+                    お子さんの不登校をきっかけに、お母さん自身の生き方や価値観も「${momPSabian.essence}」方向へと優しくアップデートされるタイミングです。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- P月 -->
+            <div class="space-y-4 pt-2">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h4 class="text-sm font-bold text-stone-800 flex items-center gap-2">
+                    <i data-lucide="moon" class="w-4 h-4 text-indigo-500"></i>
+                    プログレスの月（P月）：いまの「心の季節」
+                  </h4>
+                  <span class="text-[11px] text-indigo-800 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200/70">
+                    ※約2年半ごとにゆっくり季節が移り変わります
+                  </span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">
+                  今この瞬間の心のバイオリズムを表示しています。数ヶ月経ったときや「次の季節まで」の時期が近づいたら、また開いて変化を見てみてくださいね。
+                </p>
+              </div>
+
+              <!-- お子さんの心の季節カード -->
+              <div class="rounded-2xl p-5 border-2 border-stone-200/90 bg-stone-50/60 space-y-4 transition-opacity ${child.isMoonCertain ? 'opacity-100' : 'opacity-55'}">
+                ${!child.isMoonCertain ? '<div class="text-xs font-bold text-amber-800 bg-amber-100/90 px-3 py-1.5 rounded-lg inline-block">※お子さんの出生時間が未入力で月の境界日のため、参考表示（薄め）になっています</div>' : ''}
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-200/80 pb-3">
+                  <div>
+                    <span class="text-base sm:text-lg font-bold text-stone-900">
+                      ${cPData.emoji} お子さんの現在の心の季節：【${cPData.season}】
+                    </span>
+                    <p class="text-xs text-stone-600 mt-0.5">
+                      （現在の滞在度数：${childPMoonSabian.title} ／ 次の季節まで：あと約${child.progressed.monthsToNextSign}ヶ月）
+                    </p>
+                    <p class="text-xs font-bold text-indigo-900 bg-white/90 px-2.5 py-1 rounded-md border border-indigo-200/70 mt-1.5 inline-block">
+                      🌙 いまのP月サビアン：${childPMoonSabian.symbolName}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="bg-white p-4 rounded-xl border border-stone-200/70 space-y-1.5">
+                    <span class="text-xs font-bold text-stone-800 block">【いまのお子さんの心の状態】</span>
+                    <p class="text-sm text-stone-700 leading-relaxed">${cPData.state}</p>
+                    <p class="text-xs text-amber-900 bg-amber-50 p-2.5 rounded-lg mt-2">
+                      ✨ <strong>${child.progressed.moon.sign.name}のワンポイント：</strong>${cPData.signs[cSignId]}
+                    </p>
+                  </div>
+
+                  <div class="bg-white p-4 rounded-xl border border-stone-200/70 space-y-1.5">
+                    <span class="text-xs font-bold text-stone-800 block">【お母さんへのケアメッセージ】</span>
+                    <p class="text-sm text-stone-700 leading-relaxed">${cPData.momMessage}</p>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div class="bg-emerald-50/90 border border-emerald-200/80 rounded-xl p-3 text-xs sm:text-sm text-emerald-950">
+                    <span class="font-bold">✅ 今月のおすすめアクション：</span>${cPData.action}
+                  </div>
+                  <div class="bg-rose-50/90 border border-rose-200/80 rounded-xl p-3 text-xs sm:text-sm text-rose-950">
+                    <span class="font-bold">🌿 手放していいこと：</span>${cPData.letGo}
+                  </div>
+                </div>
+              </div>
+
+              <!-- お母さんの心の季節カード -->
+              <div class="rounded-2xl p-5 border border-rose-200/90 bg-rose-50/40 space-y-2.5 transition-opacity ${mom.isMoonCertain ? 'opacity-100' : 'opacity-55'}">
+                ${!mom.isMoonCertain ? '<div class="text-xs font-bold text-amber-800 bg-amber-100/90 px-3 py-1.5 rounded-lg inline-block">※お母さんの出生時間が未入力で月の境界日のため、参考表示（薄め）になっています</div>' : ''}
+                <div>
+                  <span class="text-sm sm:text-base font-bold text-rose-950 block">
+                    🌸 お母さんの現在の心の季節：【${mPData.season}】（${momPMoonSabian.title}・あと約${mom.progressed.monthsToNextSign}ヶ月）
+                  </span>
+                  <span class="text-xs font-bold text-rose-900 bg-white/80 px-2.5 py-0.5 rounded-md border border-rose-200/70 mt-1 inline-block">
+                    🌙 いまのP月サビアン：${momPMoonSabian.symbolName}
+                  </span>
+                </div>
+                <p class="text-sm text-stone-700 leading-relaxed">${mPData.momSelfState}</p>
+                ${(mom.isMoonCertain && child.isMoonCertain) ? `
+                  <p class="text-xs font-medium text-rose-900 bg-white/80 p-3 rounded-lg border border-rose-200/70">
+                    💫 <strong>親子のリズムの重なり：</strong> お子さんは「${cPData.shortSeason}」、お母さんは「${mPData.shortSeason}」を過ごしています。お互いの季節を知っておくだけで、「今はそういう時期なんだね」と心に余白が生まれます。
+                  </p>
+                ` : ''}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      document.getElementById('sections-container').innerHTML = sectionsHtml;
+
+      // 4. サマリーコピーエリア描画
+      document.getElementById('summary-container').innerHTML = `
+      
+          
+                          </div>
+                          
+        </section>
+      `;
+
+      // Lucideアイコンを再描画
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      if (shouldScroll) {
+        const el = document.getElementById('results-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    window.switchTab = function(tabId) {
+      currentTab = tabId;
+      runDiagnosis(false);
+    };
+
+    window.copySummary = function() {
+      const btn = document.getElementById('copy-btn');
+      const textarea = document.createElement('textarea');
+      textarea.value = currentSummaryText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      if (btn) {
+        btn.className = 'px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer bg-emerald-500 text-white';
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>コピーしました！</span>';
+        if (window.lucide) window.lucide.createIcons();
+        setTimeout(() => {
+          btn.className = 'px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer bg-amber-500 hover:bg-amber-400 text-stone-950';
+          btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i><span>鑑定結果をコピーする</span>';
+          if (window.lucide) window.lucide.createIcons();
+        }, 2500);
+      }
+    };
+
+    // イベントリスナー登録
+    document.getElementById('astro-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      runDiagnosis(true);
+    });
+
+    ['mom-date', 'mom-time', 'child-date', 'child-time'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => runDiagnosis(false));
+    });
+
+    // 初回描画
+    window.addEventListener('DOMContentLoaded', () => {
+      runDiagnosis(false);
+    });
+  </script>
+</body>
+</html>
